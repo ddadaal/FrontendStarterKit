@@ -1,0 +1,779 @@
+{
+  "common": {
+    "loading": "加载中",
+    "userRole": {
+      "WORKER": "工人",
+      "REQUESTER": "发起者"
+    },
+    "login": {
+      "needLogin": "请登录。",
+      "roleNotMatch": "权限不正确。接受权限：{expected}，您的权限：{current}"
+    }
+  },
+  "admin": {
+    "menu": {
+      "dashboard":"平台信息",
+      "missionChart": "任务统计",
+      "instanceChart": "实例统计",
+      "dateChart": "每日实例",
+      "user": "用户统计",
+      "credits": "积分统计"
+    },
+    "dashboard": {
+      "name":"平台信息"
+    },
+    "missionChart": {
+      "stateDistribution": "任务状态统计",
+      "activeMissionCount":"可接受任务",
+      "pendingMissionCount":"未到期任务",
+      "endedMissionCount":"已结束任务",
+      "totalMissionCount":"总任务",
+      "typeDistribution": "各类任务状态统计",
+
+      "modal": {
+        "missionId": "任务ID",
+        "missionType": "任务类型",
+        "missionState": "任务状态",
+        "detail": "任务详细",
+        "action": "操作"
+      }
+    },
+    "instanceChart": {
+      "stateDistribution": "实例状态统计",
+      "inProgressInstanceCount":"进行中实例",
+      "submittedInstanceCount":"待评价实例",
+      "finalizeInstanceCount":"已结束实例",
+      "abandonedInstanceCount": "已放弃实例",
+      "totalInstanceCount":"总实例",
+      "typeDistribution": "各类任务实例状态统计",
+      "heatMap": "实例接受/日期热力图",
+      "instanceState": {
+        "IN_PROGRESS": "正在进行",
+        "SUBMITTED": "已提交",
+        "FINALIZED": "已结束",
+        "ABANDONED": "已放弃"
+      }
+    },
+    "creditsChart": {
+      "name": "积分分布",
+      "total": "总积分",
+      "requester": "发起者拥有",
+      "worker": "工人拥有",
+      "mission": "任务尚未分配",
+      "typeCreditDistribution": "各类型任务积分分配图"
+    },
+    "userChart": {
+      "name": "用户统计",
+      "total": "总用户数",
+      "requester": "发起者",
+      "worker": "工人",
+      "registerDateCountChart": "注册人数/日期曲线",
+      "table": {
+        "username": "用户名",
+        "email": "电邮",
+
+        "registerDate": "注册时间",
+        "worker":{
+          "title": "工人",
+          "credits":"积分",
+          "exp": "经验",
+          "level": "等级",
+          "completedMissionCount": "已提交",
+          "acceptedMissionCount": "所有任务",
+          "inProgressMissionCount": "正在进行中",
+          "abandonedMissionCount": "已放弃",
+          "finalizedMissionCount": "已完结"
+        },
+        "requester": {
+          "title": "发起者",
+          "submittedMissionCount": "创建任务数",
+          "instanceCount": "任务实例数",
+          "submittedInstanceCount": "已提交的实例数",
+          "inProgressInstanceCount": "正在进行中的实例数",
+          "finalizedInstanceCount": "已完成的实例数",
+          "abandonedInstanceCount": "已放弃的实例数"
+        }
+      }
+    }
+  },
+  "home": {
+    "enter": "开始体验",
+    "productDescription": "一个数据标注系统",
+    "function": {
+      "title": "标注工作",
+      "IMAGE": "图片",
+      "TEXT":"文本",
+      "AUDIO": "音频",
+      "VIDEO": "视频",
+      "THREE_DIMENSION": "3D"
+    },
+    "feature": {
+      "title": "系统特性",
+      "responsiveness": "响应式设计",
+      "shortcut": "快捷键",
+      "tagRecommendation": "智能标注推荐",
+      "i18n": "多语言"
+    }
+  },
+  "footer": {
+    "productDescription": "一个数据标注系统",
+    "help": {
+      "title": "帮助",
+      "about": "关于",
+      "usage": "使用帮助",
+      "FAQ": "FAQ"
+    },
+    "madeByUs": {
+      "title": "由Trap x00制作",
+      "NJUAdmin": "NJUAdmin，南大数据整合系统",
+      "AstronAlice": "AstronAlice，Unity 2D/3D消消乐",
+      "Lightx00": "Light x00，灯具进销存系统"
+    },
+    "contact": "联系我们",
+    "copyright": "用❤制作。© 2018 Trap x00，保留所有权利。"
+  },
+  "frameMenu": {
+    "home": "首页",
+    "imageLabel": "图片标注",
+    "videoLabel": "视频标注",
+    "textLabel": "文字标注",
+    "aboutLabel": "关于我们"
+  },
+  "navbar": {
+    "home": "主页",
+    "browse": "浏览",
+    "mission": "任务",
+    "tag": "标注",
+    "about": "关于",
+    "login": "登录",
+    "logout": "登出",
+    "welcome": "{username}",
+    "selfCenter": "个人中心",
+    "pay": "充值中心",
+    "leaderboard":"排行榜",
+    "collapse": "收回"
+  },
+  "leaderboard":{
+    "topBoard":"巅峰榜单",
+    "workerCredits":"工人富人榜",
+    "requesterCredits":"发起者富人榜",
+    "expBoard":"经验排行榜",
+    "rankListBoard":"总排行榜",
+    "selfRank":"我的排名"
+  },
+  "selfCenter": {
+    "dashboard": "仪表盘",
+    "achievement": "成就",
+    "personalInfo": "我的信息",
+    "manageTopics":"管理主题",
+    "avatar": {
+      "gravatar": "头像通过邮箱从gravatar上获得。",
+      "whatIsGravatar": "什么是Gravatar？"
+    }
+  },
+  "dashboard": {
+    "selfInfo": {
+      "username":"用户名",
+      "email":"注册邮箱",
+      "registerDate": "注册时间",
+      "registerDateFormat": "YYYY/MM/DD",
+      "credits":"积分",
+      "level":"等级",
+      "exp":"经验",
+      "role": "角色"
+    },
+    "worker":{
+      "acceptedMissionCount":"接受任务总数",
+      "inProgressMissionCount":"正在进行任务",
+      "completedMissionCount":"提交待评任务",
+      "abandonedMissionCount":"放弃任务总数",
+      "finalizedMissionCount":"完成任务总数"
+    },
+    "requester": {
+      "total": "创建任务总数",
+      "pending":"未生效任务",
+      "active":"正在进行任务",
+      "ended":"已结束"
+    }
+  },
+  "drawingPad": {
+    "media": {
+      "audioPlayer": {
+        "play": "播放",
+        "pause":"暂停",
+        "mute": "静音",
+        "unmute": "取消静音"
+      },
+      "videoPlayer": {
+        "play": "播放",
+        "pause":"暂停",
+        "mute": "静音",
+        "unmute": "取消静音"
+      },
+      "tupleSelector":{
+        "list": {
+          "title": "已有片段列表",
+          "setStart": "设置开始时间",
+          "setEnd": "设置结束时间",
+          "play": "播放这个片段",
+          "add": "增加一个片段",
+          "remove": "删除这个片段",
+          "select": "选择这个片段",
+          "selected": "当前选择项",
+          "range": "从 {start}秒 到 {end}秒"
+        }
+      }
+    },
+    "textReader": {
+      "raw": "原文",
+      "segmented": "分词结果",
+      "notAllowed": "主题分类不支持自定义标签。"
+    },
+    "common": {
+      "progressController": {
+        "save": "保存进度 (Ctrl+S)",
+        "backward": "前一张 (a)",
+        "toFirstIncomplete": "去未完成的第一张",
+        "submit": "提交任务",
+        "confirmTitle": "确认提交任务？",
+        "confirmDescription": "提交任务后不能继续做任务！",
+        "forward": "后一张 (d)"
+      },
+      "tagDescriptionTuplePanel": {
+        "tags" : "标签",
+        "topics": "主题",
+        "descriptions": "描述",
+        "addOne": "增加一条描述",
+        "inputPrompt": "请输入描述",
+        "newTag": "新标签",
+        "tagName": "标签名",
+        "tagNameInvalid": "请输入标签名。",
+        "tagLimited": "任务不可自定义标签。请从以下标签中选择一个",
+        "tagInformation": "标签信息",
+        "aiTags": "智能推荐",
+        "predefinedTags": "预设标签",
+        "ok": "确定",
+        "remove": "移除",
+        "cancel": "取消"
+      },
+
+      "missionTipCard": {
+        "missionTitle": "任务标题",
+        "title": "任务目标",
+        "missionType":"任务类型",
+        "IMAGE": {
+          "name":"图片任务",
+          "type": "图片任务类型",
+          "allowCustomTag": {
+            "prompt": "允许自定义标签",
+            "true": "是",
+            "false": "否"
+          },
+          "tags": "预设标签",
+          "requesterTags": "发起者标签",
+          "aiTags": "智能推荐的标签",
+          "types": {
+            "WHOLE": {"name": "整体"},
+            "PART": { "name": "局部"},
+            "DISTRICT": {
+              "name": "区域"
+            }
+          }
+        },
+
+        "TEXT": {
+          "name": "文本任务",
+          "type": "文本任务类型",
+          "types": {
+            "CLASSIFICATION": {
+              "name": "主题分类",
+              "classes":"预设分类"
+            },
+            "KEYWORDS": {
+              "name": "提取主题词",
+              "keywords": "主题词"
+            }
+          }
+        },
+        "AUDIO": {
+          "name":"音频任务",
+          "type": "音频任务类型",
+          "allowCustomTag": {
+            "prompt": "允许自定义标签",
+            "true": "是",
+            "false": "否"
+          },
+          "tags": "预设标签",
+          "types": {
+            "WHOLE": {"name": "整体"},
+            "PART": { "name": "局部"}
+          }
+        },
+        "VIDEO": {
+          "name":"视频任务",
+          "type": "视频任务类型",
+          "allowCustomTag": {
+            "prompt": "允许自定义标签",
+            "true": "是",
+            "false": "否"
+          },
+          "tags": "预设标签",
+          "types": {
+            "WHOLE": {"name": "整体"},
+            "PART": { "name": "局部"}
+          }
+        },
+        "THREE_DIMENSION": {
+          "name":"3D任务",
+          "type": "3D任务类型",
+          "allowCustomTag": {
+            "prompt": "允许自定义标签",
+            "true": "是",
+            "false": "否"
+          },
+          "tags": "预设标签",
+          "types": {
+            "WHOLE": {"name": "整体"}
+          }
+        }
+      },
+      "finish": {
+        "editingComplete": "祝贺！您已经完成了这次任务的所有工作。您现在可以选择保存进度或者提交现在的进度。（一旦您选择了提交，您将无法再更改您的进度。）",
+        "editingCompleteTitle": "所有工作完成",
+        "submit": "提交",
+        "goBack": "返回",
+        "saveProgress": "保存进度但不提交",
+        "readonlyComplete": "这是最后一张了",
+        "workSaved": "工作已保存"
+      }
+    },
+    "district": {
+      "prompts": {
+        "readyToDraw": "按下并按住鼠标，画出一个封闭区域",
+        "drawingBoundary": "按住鼠标并滑动，画出一个封闭区域",
+        "boundaryDown": "您已经画出了封闭区域。您可以 {continueDrawing} 或者 {confirm}。",
+        "continueDrawing": "继续画更多的封闭区域 (v)",
+        "confirm": "确认(c)",
+        "error": {
+          "errorTip": "错误提示",
+          "cross": "边界不能交叉",
+          "outOfBound": "鼠标不能移出画框",
+          "notEndsAtStartingPoint": "终点应该与出发点重合",
+          "": ""
+        }
+      },
+      "add": "增加一个区域 (c)",
+      "removeSelected": "移除当前选中的区域 (x)"
+    },
+    "rectangle": {
+      "add": "增加一个区域 (c)",
+      "removeSelected": "移除当前选中的区域 (x)"
+    }
+  },
+  "missions": {
+    "needLogin": "请先登录",
+    "missionDetail": {
+      "missionId": "任务ID",
+      "basic": "基本信息",
+      "title": "任务详情",
+      "description": "任务描述",
+      "dateRange": "起始时间",
+      "dateRangeFormat": "{start} 至 {end}",
+      "dateFormat": "YYYY/MM/DD HH:mm:ss",
+      "topics": "主题",
+      "jobCount": "工作数量",
+      "cover": "封面",
+
+      "minimalWorkerLevel": "最低工人等级",
+      "level": "任务等级",
+      "requesterUsername": "发起者",
+
+      "missionType": "任务类型",
+      "credits": "奖金池",
+      "IMAGE": {
+        "name": "图片任务",
+        "imageMissionTypes": "图片任务类型",
+        "types": {
+          "WHOLE": "整体",
+          "PART": "局部",
+          "DISTRICT": "区域"
+        },
+        "allowCustomTag": {
+          "true": "允许自定义标签",
+          "false": "不允许自定义标签"
+        },
+        "tags": "可用标签示例"
+      },
+      "TEXT": {
+        "name":"文本任务",
+        "types": "文本任务种类",
+        "sampleTitle": "文本示例",
+        "CLASSIFICATION": {
+          "name": "主题分类",
+          "classes":"预设分类"
+        },
+        "KEYWORDS": {
+          "name": "提取主题词",
+          "keywords": "预设主题词"
+        }
+      },
+      "AUDIO": {
+        "name": "音频任务",
+        "sampleTitle": "音频示例",
+        "audioMissionTypes": "音频任务类型",
+        "types": {
+          "WHOLE": "整体",
+          "PART": "局部"
+        },
+        "allowCustomTag": {
+          "true": "允许自定义标签",
+          "false": "不允许自定义标签"
+        },
+        "tags": "可用标签示例"
+      },
+      "VIDEO": {
+        "name": "视频任务",
+        "sampleTitle": "视频示例",
+        "videoMissionTypes": "视频任务类型",
+        "types": {
+          "WHOLE": "整体",
+          "PART": "局部"
+        },
+        "allowCustomTag": {
+          "true": "允许自定义标签",
+          "false": "不允许自定义标签"
+        },
+        "tags": "可用标签示例"
+      },
+      "THREE_DIMENSION": {
+        "name": "3D任务",
+        "sampleTitle": "3D任务示例",
+        "allowCustomTag": {
+          "true": "允许自定义标签",
+          "false": "不允许自定义标签"
+        },
+        "tags": "可用标签示例"
+      }
+    },
+    "createMission": {
+      "title": "创建任务",
+      "completeCreation": {
+        "title": "任务创建成功",
+        "description": "任务已经创建。{to}查看任务详细信息",
+        "to": "点击这里"
+      },
+      "menu": {
+        "IMAGE": "图片",
+        "TEXT": "文本",
+        "AUDIO": "音频",
+        "VIDEO": "视频",
+        "THREE_DIMENSION": "3D"
+      },
+      "uploadStage": {
+        "0": "上传信息",
+        "1": "上传封面图",
+        "2": "上传附件"
+      },
+      "fields": {
+        "generalProperties": "任务属性",
+        "title": "任务标题",
+        "requireTitle": "请输入任务标题",
+        "description": "任务描述",
+        "requireDescription": "请输入任务描述",
+        "topics": "主题词",
+        "availableTopics": "可选主题词",
+        "dateRange":"时间段",
+        "requireDateRange": "请选择任务有效时间段",
+
+        "cover": "封面图",
+        "selectFile": "选择文件",
+        "minimalWorkerLevel": "工人最低等级",
+        "requireMinimalWorkerLevel": "工人等级区间为[1,100]的整数",
+        "missionLevel": "任务等级",
+        "requireMissionLevel": "任务等级为[1,5]的整数",
+        "credits": "预支付积分",
+        "creditsError": {
+          "loading": "加载剩余积分中",
+          "format": "请输入非负整数",
+          "insufficient": "积分不足，现有积分：{current}。{goPay}",
+          "goPay": "去充值",
+          "remaining": "现有积分：{current}"
+        },
+        "IMAGE": {
+          "title": "图片任务属性",
+          "types": {
+            "name": "图片任务类型",
+            "DISTRICT": "区域",
+            "WHOLE":"整体",
+            "PART": "局部"
+          },
+          "selectFile": "选择文件",
+          "tags": "标签",
+          "allowCustomTag": "允许工人自定义标签",
+          "requireTags": "当不允许工人自定义标签时，请添加至少一个可用标签",
+          "requireTypes": "请选择至少一种任务",
+          "images": "任务图片",
+          "requireImages": "请上传至少一张图片"
+        },
+        "TEXT": {
+          "title": "文本任务属性",
+          "classification": {
+            "placeholder": "输入主题。输入完一个主题，按一下回车确认",
+            "prompt": "主题分类（工人只能在预设主题中选择）",
+            "requireClasses": "请至少填入一个预设主题"
+          },
+          "keywords": {
+            "placeholder": "输入主题词。输入完一个主题，按一下回车确认",
+            "prompt": "提取主题词（工人可自定义主题词）"
+          },
+          "requireTask": "请选择至少一种任务",
+          "zip": {
+            "selectFile": "选择文件",
+            "prompt": "请将所有文本文件处理成TXT文件，并打包成ZIP文件，再上传。",
+            "upload": "上传",
+            "requireZip": "请上传压缩包"
+          }
+        },
+        "AUDIO": {
+          "title": "音频任务属性",
+          "types": {
+            "name": "音频任务类型",
+            "WHOLE":"整体",
+            "PART": "局部"
+          },
+          "selectFile": "选择文件",
+          "tags": "标签",
+          "allowCustomTag": "允许工人自定义标签",
+          "requireTags": "当不允许工人自定义标签时，请添加至少一个可用标签",
+          "requireTypes": "请选择至少一种任务",
+          "audios": "音频文件",
+          "requireAudios": "请上传至少一份音频文件"
+        },
+        "VIDEO": {
+          "title": "视频任务属性",
+          "types": {
+            "name": "视频任务类型",
+            "WHOLE":"整体",
+            "PART": "局部"
+          },
+          "selectFile": "选择文件",
+          "tags": "标签",
+          "allowCustomTag": "允许工人自定义标签",
+          "requireTags": "当不允许工人自定义标签时，请添加至少一个可用标签",
+          "requireTypes": "请选择至少一种任务",
+          "videos": "视频文件",
+          "requireVideos": "请上传至少一份视频文件"
+        },
+        "THREE_DIMENSION": {
+          "title": "3D任务属性",
+          "types": {
+            "name": "3D任务类型",
+            "WHOLE":"整体"
+          },
+          "selectFile": "选择文件",
+          "tags": "标签",
+          "allowCustomTag": "允许工人自定义标签",
+          "requireTags": "当不允许工人自定义标签时，请添加至少一个可用标签",
+          "threeDimensions": "3D文件",
+          "requireThreeDimensions": "请上传至少一份3D文件"
+        },
+        "submit": "提交"
+      }
+
+    },
+    "worker": {
+      "myMissions": {
+        "menuText": "我的任务",
+        "title": "我的任务",
+        "loadingCard": "加载任务",
+        "cardState": {
+          "submitted": "已提交",
+          "abandoned": "已放弃",
+          "inProgress": "正在进行",
+          "finalized": "已结束"
+        },
+        "cardActions": {
+          "continue": "继续做任务",
+          "abandon": "放弃",
+          "seeMore": "查看详细信息",
+          "seeFinalizeResult": "查看评分结果",
+          "abandonConfirm": "您确定要放弃这个任务吗？"
+        }
+      },
+      "detailOperationBar": {
+        "accept": "接受这个任务",
+        "seeResult": "查看任务进度",
+        "continueWorking": "继续做任务",
+        "accepted": "接受任务成功",
+        "levelNotEnough": "等级不足以接受任务",
+        "state": {
+          "FINALIZED": "您已经做过本任务，并已经获得评价。",
+          "SUBMITTED": "您已经提交本任务，等待评价。",
+          "IN_PROGRESS": "您正在做本任务。",
+          "ABANDONED": "您已经放弃本任务。"
+        }
+      }
+    },
+    "sideMenu": {
+      "mission": "任务",
+      "instance": "实例"
+    },
+    "requester": {
+      "mission": {
+        "title": "任务",
+        "add": "新增任务"
+      },
+      "missionCard": {
+        "missionState": {
+          "PENDING": "未生效",
+          "ACTIVE": "生效",
+          "ENDED": "结束"
+        },
+        "actions": {
+          "searchInstances": "查找所有实例",
+          "info": "任务信息"
+        }
+      },
+
+      "instancePanel": {
+        "title": "实例",
+        "search": {
+          "placeholder": "任务ID"
+        },
+        "missionIdNotFound": "任务ID不存在。",
+        "instanceStateDiagram": {
+          "total": "总实例数",
+          "FINALIZED": "已结束实例",
+          "IN_PROGRESS": "正在进行中实例",
+          "SUBMITTED": "已提交实例",
+          "ABANDONED":"已放弃实例"
+        },
+        "table": {
+          "dateFormat": "YYYY/MM/DD HH:mm:SS",
+          "instanceId": "实例ID",
+          "missionId": "任务ID",
+          "workerUsername": "工人用户名",
+          "missionInstanceState": "实例状态",
+          "dateRange": "时间段",
+          "inProgress": "正在进行",
+          "acceptDate": "接受时间",
+          "submitDate": "提交时间",
+          "action": "操作",
+          "seeResult": "查看结果",
+          "finalize": "评分",
+          "finalizeResult": "查看评分结果"
+        },
+        "finalize": {
+          "expRatio": "经验比例",
+          "credits": "给予积分",
+          "comment": "评价",
+          "requireExpRatio": "请输入有效的经验比例(0.0,1.0]",
+          "requireCredits": "请输入有效的积分数（非负整数）。现有积分：{credits}",
+          "submit": "提交",
+          "default": "恢复默认",
+          "back": "返回",
+          "title": "评价",
+          "exp": "实际所得经验",
+          "availableCredits": "可用积分：{credits}",
+          "creditsNotSufficient": "积分不足。可用积分：{credits}。{goPay}",
+          "goPay": "去充值"
+        }
+      }
+    }
+  },
+  "loginModal": {
+    "title": "登录",
+    "username": "用户名",
+    "requireUsername": "请输入用户名",
+    "password": "密码",
+    "requirePassword": "请输入密码",
+    "login": "登录",
+    "forgetPassword": "忘记密码",
+    "remember": "记住我",
+    "cancel": "取消",
+    "register": "注册",
+    "error": {
+      "WrongCredential": "用户名或者密码错误",
+      "ServerError": "服务器出错，请稍候再试",
+      "NetworkError" :"本地网络出错，请检查网络连接"
+    }
+  },
+  "languageSelector": {
+    "loading": "载入中"
+  },
+  "registerForm": {
+    "submit": "提交",
+    "role": "角色",
+    "worker": "工人",
+    "requester": "发布者",
+    "username": "用户名",
+    "requireUsername": "请输入用户名",
+    "password": "密码",
+    "requirePassword": "请输入密码",
+    "requireConfirmPassword": "请确认密码",
+    "confirmPassword": "确认密码",
+    "notEqualPassword": "您输入的两次密码不相同",
+    "email": "邮箱地址",
+    "requireEmail": "请输入您的邮箱地址",
+    "wrongEmailFormat": "邮箱地址格式不正确",
+    "passwordForgot": "找回密码",
+    "step1": "填写信息",
+    "step2": "邮箱确认",
+    "step3": "注册成功"
+  },
+  "searchBar": {
+    "searchPlaceholder": "按回车以搜索",
+    "searchAll": "全部"
+  },
+  "browserMissionList": {
+    "dividerText": "任务列表",
+    "accept": "接受",
+    "missionAccepted": "任务已经成功接受",
+    "seeDetail": "查看详细信息",
+    "missionType": {
+      "IMAGE": "图片",
+      "TEXT":"文本",
+      "AUDIO": "音频",
+      "VIDEO": "视频",
+      "THREE_DIMENSION": "3D"
+    },
+    "dateFormat": "YYYY/MM/DD HH:mm:ss"
+  },
+  "pay": {
+    "title": "充值",
+    "payAccount": "充值账户",
+    "payMission": "充值任务",
+    "creditInput": {
+      "loading": "加载剩余积分中...",
+      "format": "请输入非负整数",
+      "insufficient": "积分不足，现有积分：{current}。{goPay}",
+      "goPay": "去充值",
+      "remaining": "现有积分：{current}。{goPay}",
+      "prompt": "给予积分"
+    },
+    "account": {
+      "title": "充值账户",
+      "currentCredits": "现在的积分：",
+      "inputCredits": "请输入你要充值的金额：",
+      "submit": "充值",
+      "loading": "加载中",
+      "format": "输入应该是大于0的整数",
+      "paymentComplete": "充值成功"
+    },
+    "mission": {
+      "missionId": "任务ID",
+      "title": "充值任务",
+      "check": "验证并查看剩余积分",
+      "needCheck": "{click}验证任务ID并查看任务所剩积分数",
+      "click": "点击",
+      "inputMissionId": "请输入任务ID",
+      "currentCredits": "任务剩余可分配积分：{credits}",
+      "inputCredits": "请输入你要充值的金额：",
+      "submit": "充值",
+      "loading": "加载中",
+      "missionNotExist": "任务不存在",
+      "format": "输入应该是大于0的整数",
+      "paymentComplete": "充值成功"
+    }
+  }
+}
