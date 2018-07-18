@@ -1,7 +1,7 @@
 import { action, computed, observable, runInAction } from "mobx";
-import { UserService } from "../../../api/UserService";
-import { UserStore } from "../../../stores/UserStore";
 import { Inject, Injectable } from "react.di";
+import { UserService } from "../../api/UserService";
+import { UserStore } from "../../stores/UserStore";
 
 
 export enum LoginState {

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Inject } from "react.di";
 import { Icon, Menu } from 'antd';
-import { RouterStore } from "../../stores/RouterStore";
-import { NavItemProps } from "../../stores/NavStore";
+import { RouterStore } from "../../routing/RouterStore";
 import { Link } from 'react-router-dom';
 import { dropdownMenuStyle, horizontalMenuStyle } from "./Layout";
 import { LocaleMessage } from "../../internationalization/components";
+import { NavItemProps } from "./NavItemProps";
 
 interface Props {
   dropdownMode: boolean;

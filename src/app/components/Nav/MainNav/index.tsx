@@ -4,17 +4,16 @@ import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import { Inject } from "react.di";
 import { LogoContainer } from "../Layout";
-import { RouterStore } from "../../../stores/RouterStore";
-import { NavItemProps, NavStore } from "../../../stores/NavStore";
+import { RouterStore } from "../../../routing/RouterStore";
 import { navRoutes, NOT_LOGIN_FLAG, submenuMap } from "./SubMenus";
 import { LocaleMessage } from "../../../internationalization/components";
 import { UserStore } from "../../../stores/UserStore";
 import { action, computed } from "mobx";
-import { SvgImg } from "../../Common/SvgImg";
 import styled from "styled-components";
 import { flatten } from "../../../../utils/Array";
 import { SiderProps } from "antd/es/layout";
 import { LogoItem } from "../LogoItem";
+import { NavItemProps } from "../NavItemProps";
 
 const {SubMenu} = Menu;
 const {Sider} = Layout;
@@ -48,7 +47,6 @@ const MySider = styled(Sider) `
 export class MainNav extends React.Component<{}, {}> {
 
   @Inject routerStore: RouterStore;
-  @Inject navStore: NavStore;
   @Inject userStore: UserStore;
 
   @computed get currentSubMenuMap() {
@@ -72,12 +70,10 @@ export class MainNav extends React.Component<{}, {}> {
   };
 
   @action onCollapse = () => {
-    this.navStore.navMenuShown = false;
   };
 
   render() {
-    return <MySider collapsed={false}
-                  shown={this.navStore.navMenuShown}>
+    return <MySider collapsed={false} shown={true}>
       <LogoItem/>
       <Menu
         theme="dark"

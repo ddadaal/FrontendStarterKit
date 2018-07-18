@@ -1,6 +1,5 @@
 import React, { CSSProperties } from 'react';
 import { Checkbox, Input, Tag, Select } from 'antd';
-import { SearchBar } from "../../pages/BrowsePage/SearchBar";
 import { SelectValue } from "antd/es/select";
 const { Option } = Select;
 

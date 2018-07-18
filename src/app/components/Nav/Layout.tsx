@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { CSSProperties } from "react";
-import { CONTENT_SIDE_PADDING } from "../../stores/UiStore";
 
 const breakpoint = 997;
 const navbarHeight = 64;
@@ -34,7 +33,7 @@ export const Row = styled.div`
     justify-content: space-between;
     height: ${navbarHeight}px;
     background: #ffffff;
-    padding: ${CONTENT_SIDE_PADDING}px ${CONTENT_SIDE_PADDING}px;
+    padding: 16px 16px;
    
 `;
 

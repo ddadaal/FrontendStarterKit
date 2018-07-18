@@ -1,16 +1,16 @@
 import React from "react";
 import { Button, Modal, message } from 'antd';
-import { Localize } from "../../../internationalization/components";
 import { observer } from "mobx-react";
-import { UiStore } from "../../../stores/UiStore";
 import { LoginController, LoginError, LoginErrorType, LoginServerError } from "./LoginController";
 import { LoginForm } from "./Form";
 import { action } from "mobx";
 import { Inject, Module } from "react.di";
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import { LocaleStore } from "../../../stores/LocaleStore";
 import Hotkeys from 'react-hot-keys';
+import { UiStore } from "../../stores/UiStore";
+import { LocaleStore } from "../../internationalization";
+import { Localize } from "../../internationalization/components";
 
 interface Props  {
 

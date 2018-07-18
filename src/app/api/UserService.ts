@@ -18,8 +18,6 @@ function encryptPassword(password: string) {
 @Injectable
 export class UserService {
 
-
-
   constructor(@Inject private http: HttpService) {
   }
 
@@ -47,23 +45,6 @@ export class UserService {
       queryParams: {username, password, email, role},
       method: HttpMethod.POST
     });
-  }
-
-  async registerValidate(token: string, code: string): Promise<NetworkResponse<LoginResponse>> {
-
-    return await this.http.fetch({
-      path: "account/register/validate",
-      queryParams: {token, code},
-      method: HttpMethod.POST
-    });
-  }
-
-  async getLevelInfo(token: string): Promise<LevelInfo> {
-    const res = await this.http.fetch({
-      path:"account/level",
-      method: HttpMethod.GET,
-    });
-    return res.response;
   }
 
 }

@@ -4,7 +4,7 @@ import { UserService } from "../api/UserService";
 import { localStorage } from './UiUtil';
 import { Inject, Injectable } from "react.di";
 import { HttpService } from "../api/HttpService";
-import { RouterStore } from "./RouterStore";
+import { RouterStore } from "../routing/RouterStore";
 
 const USER_LOCALSTORAGE_KEY = "user";
 

@@ -1,60 +1,17 @@
+import { Definition, Language, LANGUAGE_CONFIG_TOKEN } from "../definitions";
 import { action, computed, observable, runInAction } from "mobx";
-import React, { ReactNode } from "react"
-import config from '../../assets/i18n/index.json';
-import { Injectable } from "react.di";
-import immer from "immer";
+import { Inject, Injectable } from "react.di";
+import * as React from "react";
 
-interface Language {
-  id: string;
-  name: string;
-  acceptedLanguages: string[];
-  definitionFileName: string;
-}
 
-interface LanguageConfig {
-  fallbackId: string,
-  languages: Language[]
-}
+type LoadedLanguage = Language & { definitions: Definition }
 
-export type Replacement = string | JSX.Element;
-
-export type ReplacementMap = {[s: string]: Replacement};
+export type ReplacementMap = {[key: string]: React.ReactNode};
 
 const idSeparator = '.';
 
-type LoadedLanguage = Language & { definitions: any }
-
 function currentBrowserLanguage(fallback: string) {
-  return window ? window.navigator.language : fallback;
-}
-
-function format(content: string, replacements?: ReplacementMap) : Array<ReactNode> | string {
-  const splitter = /({[0-9a-zA-Z]+})/;
-  let array = content.split(splitter);
-  let newArray = array as Array<ReactNode>;
-  let elementReplaced = false;
-  if (replacements) {
-    for (let i =1;i<array.length;i+=2) {
-      const tag = array[i].substr(1,array[i].length - 2);
-      const replacement = replacements[tag];
-      if (replacement) {
-        if (typeof replacement == 'string') {
-          newArray[i] = replacement;
-        } else {
-          elementReplaced = true;
-          newArray[i] = <React.Fragment key={i}>{replacement}</React.Fragment>;
-        }
-      }
-    }
-  }
-
-  const f: (a) => any = immer((a) => {});
-
-  if (elementReplaced) {
-    return newArray;
-  } else {
-    return newArray.join("");
-  }
+  return typeof window !== 'undefined' ? window.navigator.language : fallback;
 }
 
 @Injectable
@@ -65,6 +22,8 @@ export class LocaleStore {
   @observable.ref currentLanguage: LoadedLanguage;
 
   fallbackLanguage: LoadedLanguage;
+
+  constructor(@Inject(LANGUAGE_CONFIG_TOKEN) private config: Language[]) { }
 
   @computed get definitions() {
     return this.currentLanguage.definitions;
@@ -84,26 +43,57 @@ export class LocaleStore {
       return this.loadedLanguages.get(id);
     }
     const language = this.availableLanguages.get(id);
-    const definitions = await import(`../../assets/i18n/${language.definitionFileName}.json`);
+    const definitions = await language.getDefinition;
     const loaded = { ...language, definitions: definitions};
     this.loadedLanguages.set(language.id, loaded);
     return loaded;
   };
 
   public async init() {
-    for (const l of config.languages) {
+    let fallbackId = null;
+    for (const l of this.config) {
       this.availableLanguages.set(l.id, l);
+      if (l.fallback) {
+        fallbackId = l.id;
+      }
     }
 
-    this.fallbackLanguage = await this.loadLanguage(config.fallbackId);
+    this.fallbackLanguage = await this.loadLanguage(fallbackId);
 
-    this.currentLanguage = await this.loadLanguage(currentBrowserLanguage(config.fallbackId));
+    this.currentLanguage = await this.loadLanguage(currentBrowserLanguage(fallbackId));
   }
 
-  public get(id: string, replacements?: ReplacementMap) : Array<ReactNode> | string {
+  public get(id: string, replacements?: ReplacementMap) : Array<React.ReactNode> | string {
     const definition = this.retrieveDefinition(id);
-    return format(definition, replacements);
+    return this.replace(definition, replacements);
   };
+
+  replace(format: string, replacements?: ReplacementMap) : Array<React.ReactNode> | string {
+    const splitter = /({[0-9a-zA-Z]+})/;
+    let array = format.split(splitter);
+    let newArray = array as Array<React.ReactNode>;
+    let elementReplaced = false;
+    if (replacements) {
+      for (let i =1;i<array.length;i+=2) {
+        const tag = array[i].substr(1,array[i].length - 2);
+        const replacement = replacements[tag];
+        if (replacement) {
+          if (React.isValidElement(replacement)) {
+            elementReplaced = true;
+            newArray[i] = <React.Fragment key={i}>{replacement}</React.Fragment>;
+          } else {
+            newArray[i] = replacement;
+          }
+        }
+      }
+    }
+
+    if (elementReplaced) {
+      return newArray;
+    } else {
+      return newArray.join("");
+    }
+  }
 
   private retrieveDefinition(id: string) {
     let content = this.definitions;

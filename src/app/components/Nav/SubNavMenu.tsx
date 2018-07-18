@@ -1,12 +1,12 @@
 import React from 'react';
 import { Icon, Menu } from 'antd';
 import { Inject } from "react.di";
-import { RouterStore } from "../../stores/RouterStore";
+import { RouterStore } from "../../routing/RouterStore";
 import { UserStore } from "../../stores/UserStore";
 import { observer } from "mobx-react";
 import { Link } from 'react-router-dom';
 import { LocaleMessage } from "../../internationalization/components";
-import { NavItemProps } from "../../stores/NavStore";
+import { NavItemProps } from "./NavItemProps";
 
 
 interface Props {

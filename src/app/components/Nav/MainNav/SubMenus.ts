@@ -1,5 +1,6 @@
-import { NavItemProps } from "../../../stores/NavStore";
+
 import { UserRole } from "../../../models/user/User";
+import { NavItemProps } from "../NavItemProps";
 
 export const navRoutes: { [s: string]: NavItemProps } = {
   browse: {

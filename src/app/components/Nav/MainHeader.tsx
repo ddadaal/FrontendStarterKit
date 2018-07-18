@@ -6,10 +6,8 @@ import { action } from "mobx";
 import { observer } from "mobx-react";
 import styled from "styled-components";
 import { LanguageSelector } from "../LanguageSelector";
-import { NavStore } from "../../stores/NavStore";
 import { LeftDiv, MobileNavContainer, NavItem, RightDiv, Row } from "./Layout";
 import { NavbarUserIndicator } from "./NavbarUserIndicator";
-import { NavbarModals } from "./NavbarModals";
 
 const AntdHeader = Layout.Header;
 
@@ -50,22 +48,14 @@ margin-left: 4px;
 export class MainHeader extends React.Component<Props, {}> {
 
   @Inject uiStore: UiStore;
-  @Inject navStore: NavStore;
 
   dropdownContainerRef = React.createRef() as any;
 
-  @action toggle = () => {
-    this.navStore.navMenuShown = !this.navStore.navMenuShown;
-  };
 
   render() {
 
     return <Row>
       <LeftDiv>
-        <Icon
-          type={this.navStore.navMenuShown ? 'menu-fold' : 'menu-unfold'}
-          onClick={this.toggle}
-        />
         <MobileNavContainer>
           <NavbarUserIndicator/>
           <LanguageSelector/>
@@ -78,7 +68,6 @@ export class MainHeader extends React.Component<Props, {}> {
         <NavItem>
           <NavbarUserIndicator/>
         </NavItem>
-        <NavbarModals/>
       </RightDiv>
     </Row>;
 

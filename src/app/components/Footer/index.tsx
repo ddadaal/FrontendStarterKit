@@ -5,11 +5,11 @@ import QueueAnim from 'rc-queue-anim';
 import { LocaleMessage } from "../../internationalization/components";
 import { Link } from 'react-router-dom';
 import { observer } from "mobx-react";
-import { LocaleStore } from "../../stores/LocaleStore";
 import { Inject } from "react.di";
 import styled from "styled-components";
 import img from '../../../assets/svg/.png';
 import { SvgImg } from "../SvgImg";
+import { LocaleStore } from "../../internationalization";
 
 export interface FooterProps {
   isMobile?: boolean;

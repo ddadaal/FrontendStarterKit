@@ -53,22 +53,4 @@ export class UserServiceMock extends UserService {
     );
   }
 
-  async registerValidate(token: string, code: string): Promise<NetworkResponse<LoginResponse>> {
-
-    return createNetworkResponse(200, {
-        token: "123",
-        jwtRoles: [{roleName: UserRole.ROLE_REQUESTER}],
-        email: "1@1.com",
-        avatarUrl: sampleAvatar,
-      registerDate: Date.now().toString()
-      }
-    );
-  }
-
-  async getLevelInfo(): Promise<LevelInfo> {
-    return {
-      levels: [0, 100, 200, 300]
-    } as LevelInfo;
-  }
-
 }

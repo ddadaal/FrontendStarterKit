@@ -1,10 +1,9 @@
 import { observer } from "mobx-react";
 import React from "react"
-import { LocaleMessage } from "../../internationalization";
+import { LocaleMessage, LocaleStore } from "../../internationalization";
 import { action, observable, runInAction } from "mobx";
 import { Dropdown, Icon, Menu } from 'antd';
 import { Inject } from "react.di";
-import { LocaleStore } from "../../stores/LocaleStore";
 
 interface LanguageSelectorProps {
 

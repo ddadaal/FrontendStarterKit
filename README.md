@@ -83,8 +83,8 @@ It's built from the ground up with **webpack**. No breaking boilerplate-specific
 - [chai](https://github.com/chaijs/chai)
 
 ### Internalization
-- Custom i18n implementation v2
-  - **Strongly typed**, dynamic replacement, async loading...
+- Custom i18n implementation
+  - dynamic replacement, async loading
 
 ### Production Utilities and Features
 
