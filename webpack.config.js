@@ -134,6 +134,11 @@ module.exports = {
       {test: /\.png$/, use: 'url-loader?limit=10000'},
       {test: /\.jpg$/, use: 'file-loader'},
       {test: /\.(md|txt)$/, use: 'raw-loader'},
+      {
+        // make all files ending in .json5 use the `json5-loader`
+        test: /\.json5$/,
+        loader: 'json5-loader'
+      }
     ]
   },
   devtool: isProduction ? false : 'cheap-module-eval-source-map',

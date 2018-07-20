@@ -1,4 +1,4 @@
-const source = require("../assets/i18n/cn.json");
+const source = require("../assets/i18n/cn.json5");
 const filesystem = require("fs");
 
 const pri_translate = require("./translate");
@@ -32,8 +32,8 @@ async function main(ori, target, targetLanguage: string) {
       let result = "//TODO";
       try {
         const res = await translate(needTranslate, [targetLanguage]);
-        
-        for (let i=0;i<splittedText.length;i+=2){ 
+
+        for (let i=0;i<splittedText.length;i+=2){
           splittedText[i]=res[Math.floor(i/2)][0].text;
         }
         result = splittedText.join("");
@@ -41,7 +41,7 @@ async function main(ori, target, targetLanguage: string) {
         console.log(e);
       }
       target[key]=result;
-      
+
     }
   }
 }

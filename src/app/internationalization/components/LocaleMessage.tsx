@@ -23,6 +23,7 @@ export class LocaleMessage extends React.Component<LocaleMessageProps, State> {
     try {
       return this.localeStore.get(this.props.id, this.props.replacements);
     } catch (e) {
+      console.error(e);
       return this.props.id;
     }
   }

@@ -1,10 +1,18 @@
-import { Definition, Language, LANGUAGE_CONFIG_TOKEN } from "../definitions";
+import { LANGUAGE_CONFIG_TOKEN } from "../definitions";
 import { action, computed, observable, runInAction } from "mobx";
 import { Inject, Injectable } from "react.di";
 import * as React from "react";
 
+export interface Language{
+  id: string;
+  name: string;
+  acceptedNavigatorLanguages: string[];
+  getDefinition: Promise<any>;
+  fallback?: boolean;
+}
 
-type LoadedLanguage = Language & { definitions: Definition }
+
+type LoadedLanguage = Language & { definitions: any }
 
 export type ReplacementMap = {[key: string]: React.ReactNode};
 
@@ -23,7 +31,11 @@ export class LocaleStore {
 
   fallbackLanguage: LoadedLanguage;
 
-  constructor(@Inject(LANGUAGE_CONFIG_TOKEN) private config: Language[]) { }
+  config: Language[];
+
+  constructor(@Inject(LANGUAGE_CONFIG_TOKEN) config: Language[]) {
+    this.config = config[0] as any; // avoid multi inject
+  }
 
   @computed get definitions() {
     return this.currentLanguage.definitions;
@@ -43,13 +55,14 @@ export class LocaleStore {
       return this.loadedLanguages.get(id);
     }
     const language = this.availableLanguages.get(id);
-    const definitions = await language.getDefinition;
+    const definitions = ((await language.getDefinition) as any).default;
+
     const loaded = { ...language, definitions: definitions};
     this.loadedLanguages.set(language.id, loaded);
     return loaded;
   };
 
-  public async init() {
+  @action async init() {
     let fallbackId = null;
     for (const l of this.config) {
       this.availableLanguages.set(l.id, l);
@@ -58,9 +71,9 @@ export class LocaleStore {
       }
     }
 
+    this.currentLanguage = await this.loadLanguage(currentBrowserLanguage(fallbackId));
     this.fallbackLanguage = await this.loadLanguage(fallbackId);
 
-    this.currentLanguage = await this.loadLanguage(currentBrowserLanguage(fallbackId));
   }
 
   public get(id: string, replacements?: ReplacementMap) : Array<React.ReactNode> | string {
@@ -96,6 +109,7 @@ export class LocaleStore {
   }
 
   private retrieveDefinition(id: string) {
+    console.log(this.definitions);
     let content = this.definitions;
     let fallbackContent = this.fallbackLanguage.definitions;
     let onFallback = false;

@@ -113,7 +113,7 @@ export class MainNav extends React.Component<{}, {}> {
         <Menu.Item key={"back"} onClick={this.onCollapse}>
           <Icon type={"left"}/>
           <span>
-                      <LocaleMessage id={"navbar.collapse"}/>
+            <LocaleMessage id={"navbar.collapse"}/>
           </span>
         </Menu.Item>
       </Menu>

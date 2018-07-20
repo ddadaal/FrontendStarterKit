@@ -24,7 +24,7 @@ export function requireLogin(...roles: UserRole[]) {
         }
         if (roles.length >0 && roles.indexOf(this.userStore.user.role) == -1) {
           return <LocaleMessage id={ID_PREFIX+"roleNotMatch"} replacements={{
-            
+
           }}/>;
         }
         return <WrappedComponent {...this.props}
@@ -39,3 +39,7 @@ export function requireLogin(...roles: UserRole[]) {
   }
 }
 
+export interface RequireLoginProps {
+  token: string;
+  currentRole: UserRole;
+}

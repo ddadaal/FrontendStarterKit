@@ -3,23 +3,11 @@ import { UserRole } from "../../../models/user/User";
 import { NavItemProps } from "../NavItemProps";
 
 export const navRoutes: { [s: string]: NavItemProps } = {
-  browse: {
-    path: "/browse",
-    iconName: "cloud",
-    id: "navbar.browse",
-    match: (pathname: string) => pathname.startsWith("/browse")
-  },
-  mission: {
-    path: "/mission",
-    iconName: "tag-o",
-    id: "navbar.mission",
-    match: (pathname: string) => pathname.startsWith("/mission")
-  },
-  leaderboard: {
-    path: "/leaderboard",
-    iconName: "bars",
-    id: "navbar.leaderboard",
-    match: (pathname: string) => pathname.startsWith("/leaderboard")
+  home: {
+    path: "/",
+    iconName: "home",
+    id: "navbar.home",
+    match: (pathname: string) => pathname === "/"
   },
   about: {
     path: "/about",
@@ -27,12 +15,31 @@ export const navRoutes: { [s: string]: NavItemProps } = {
     id: "navbar.about",
     match: (pathname: string) => pathname.startsWith("/about")
   },
-  pay: {
-    path: "/pay",
-    iconName: "pay-circle-o",
-    id: "navbar.pay",
-    match: (pathname: string) => pathname.startsWith("/pay")
-  }
+  // browse: {
+  //   path: "/browse",
+  //   iconName: "cloud",
+  //   id: "navbar.browse",
+  //   match: (pathname: string) => pathname.startsWith("/browse")
+  // },
+  // mission: {
+  //   path: "/mission",
+  //   iconName: "tag-o",
+  //   id: "navbar.mission",
+  //   match: (pathname: string) => pathname.startsWith("/mission")
+  // },
+  // leaderboard: {
+  //   path: "/leaderboard",
+  //   iconName: "bars",
+  //   id: "navbar.leaderboard",
+  //   match: (pathname: string) => pathname.startsWith("/leaderboard")
+  // },
+
+  // pay: {
+  //   path: "/pay",
+  //   iconName: "pay-circle-o",
+  //   id: "navbar.pay",
+  //   match: (pathname: string) => pathname.startsWith("/pay")
+  // }
 };
 
 
