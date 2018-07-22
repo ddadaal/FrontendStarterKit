@@ -1,22 +1,14 @@
-import { LANGUAGE_CONFIG_TOKEN } from "../definitions";
+import { LANGUAGE_CONFIG_TOKEN, Definition, KnownLanguages, Language } from "../definitions";
 import { action, computed, observable, runInAction } from "mobx";
 import { Inject, Injectable } from "react.di";
 import * as React from "react";
-
-export interface Language{
-  id: string;
-  name: string;
-  acceptedNavigatorLanguages: string[];
-  getDefinition: Promise<any>;
-  fallback?: boolean;
-}
-
-
-type LoadedLanguage = Language & { definitions: any }
+import { GET_VALUE, Lang } from "./lang";
 
 export type ReplacementMap = {[key: string]: React.ReactNode};
 
 const idSeparator = '.';
+
+type LoadedLanguage = Language & { definitions: Definition }
 
 function currentBrowserLanguage(fallback: string) {
   return typeof window !== 'undefined' ? window.navigator.language : fallback;
@@ -33,8 +25,8 @@ export class LocaleStore {
 
   config: Language[];
 
-  constructor(@Inject(LANGUAGE_CONFIG_TOKEN) config: Language[]) {
-    this.config = config[0] as any; // avoid multi inject
+  constructor(@Inject(LANGUAGE_CONFIG_TOKEN) config: KnownLanguages) {
+    this.config = config.languages; // avoid multi inject
   }
 
   @computed get definitions() {
@@ -76,8 +68,9 @@ export class LocaleStore {
 
   }
 
-  public get(id: string, replacements?: ReplacementMap) : Array<React.ReactNode> | string {
-    const definition = this.retrieveDefinition(id);
+  public get(id: string | Lang, replacements?: ReplacementMap) : Array<React.ReactNode> | string {
+    const trueId = id instanceof Lang ? id[GET_VALUE] : id;
+    const definition = this.retrieveDefinition(trueId);
     return this.replace(definition, replacements);
   };
 
@@ -109,7 +102,6 @@ export class LocaleStore {
   }
 
   private retrieveDefinition(id: string) {
-    console.log(this.definitions);
     let content = this.definitions;
     let fallbackContent = this.fallbackLanguage.definitions;
     let onFallback = false;

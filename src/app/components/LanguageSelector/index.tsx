@@ -1,9 +1,10 @@
 import { observer } from "mobx-react";
 import React from "react"
-import { LocaleMessage, LocaleStore } from "../../internationalization";
+import { LocaleMessage, LocaleStore, lang } from "../../internationalization";
 import { action, observable, runInAction } from "mobx";
 import { Dropdown, Icon, Menu } from 'antd';
 import { Inject } from "react.di";
+import { If } from "../Util/If";
 
 interface LanguageSelectorProps {
 
@@ -26,21 +27,26 @@ export class LanguageSelector extends React.Component<LanguageSelectorProps, any
       {items}
     </Menu>;
   }
-  languageOnClickProducer = (id: string) => action(async () => {
-    this.switchingToId = id;
+
+  languageOnClickProducer = (id: string) => async () => {
+    runInAction(() => {
+      this.switchingToId = id;
+    });
     await this.localeStore.changeLanguage(id);
     runInAction(() => {
       this.switchingToId = "";
     });
 
-  });
+  };
 
   constructChildren() {
     return this.localeStore.allLanguages.filter(x => x.id !== this.localeStore.currentLanguage.id).map(x =>
       <Menu.Item key={x.id}>
         <a onClick={this.languageOnClickProducer(x.id)}>
           {x.name}
-          {this.switchingToId == x.id ? <LocaleMessage id={"languageSelector.loading"}/> : null}
+          <If condition={this.switchingToId == x.id}>
+            <LocaleMessage id={lang().languageSelector.loading}/>
+          </If>
         </a>
 
       </Menu.Item>

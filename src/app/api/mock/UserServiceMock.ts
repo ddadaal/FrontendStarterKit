@@ -1,9 +1,10 @@
 import { Injectable } from "react.di";
 import { NetworkResponse, createNetworkResponse } from "../HttpService";
-import { UserRegisterResponse, UserService } from "../UserService";
+import { UserService } from "../UserService";
 import { UserRole } from "../../models/user/User";
 import { LevelInfo } from "../../models/user/LevelInfo";
 import { LoginResponse } from "../../models/user/LoginResponse";
+import { UserRegisterResponse } from "../../models/user/UserRegisterResponse";
 
 
 const sampleAvatar = "https://en.gravatar.com/userimage/57315252/e9c37404163b4b2e73fd72003e391aac.jpg?size=200";

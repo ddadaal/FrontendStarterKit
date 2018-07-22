@@ -1,11 +1,9 @@
 import React from "react";
-import { MainNav } from "../components/Nav/MainNav";
-
+import { LanguageSelector } from "../components/LanguageSelector";
 
 export function RootLayout(props: {children: React.ReactNode}) {
-  console.log("refreshed");
   return <div>
-    <MainNav/>
+    <LanguageSelector/>
     {props.children}
   </div>
 }

@@ -4,11 +4,9 @@ import { Inject, Injectable } from "react.di";
 import { UserRole } from "../models/user/User";
 import { LevelInfo } from "../models/user/LevelInfo";
 import { LoginResponse } from "../models/user/LoginResponse";
+import { UserRegisterResponse } from "../models/user/UserRegisterResponse";
 
 
-export interface UserRegisterResponse {
-  token: string
-}
 
 
 function encryptPassword(password: string) {

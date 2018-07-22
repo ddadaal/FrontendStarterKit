@@ -2,6 +2,7 @@ import { observer } from "mobx-react";
 import React from "react"
 import { Inject } from "react.di";
 import { LocaleStore, ReplacementMap } from "../LocaleStore/LocaleStore";
+import { Lang } from "../LocaleStore/lang";
 
 
 interface LocaleMessageProps {
@@ -21,6 +22,7 @@ export class LocaleMessage extends React.Component<LocaleMessageProps, State> {
 
   render() {
     try {
+
       return this.localeStore.get(this.props.id, this.props.replacements);
     } catch (e) {
       console.error(e);

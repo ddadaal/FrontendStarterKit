@@ -10,7 +10,7 @@ React [concentrates only on building views](https://reactjs.org/), therefore is 
 
 2. Production Ready
 
-Besides excellent debug experiences, it packs tools and features to simplify production process like `one-click to GitHub Pages`. See more in the [doc](docs/production.md)
+Besides excellent debug experiences, it packs tools and features to simplify production process like `one-click to GitHub Pages`. See more in the [doc](https://github.com/viccrubs/FrontendStarterKit/wiki/Basics)
 
 3. Scalable, Engineered
 
@@ -38,11 +38,13 @@ It's built from the ground up with **webpack**. No breaking boilerplate-specific
 
 [Internationalization](https://github.com/viccrubs/FrontendStarterKit/wiki/Internationalization)
 
-[IoC and Dependency Injecting](https://github.com/viccrubs/FrontendStarterKit/wiki/IoC-and-Dependency-Injecting)
+[IoC and Dependency Injection](https://github.com/viccrubs/FrontendStarterKit/wiki/IoC-and-Dependency-Injection)
 
 [User Management with JWT](https://github.com/viccrubs/FrontendStarterKit/wiki/User-Management-with-JWT)
 
 [Interaction with API](https://github.com/viccrubs/FrontendStarterKit/wiki/Interaction-with-API)
+
+[Unit tests](https://github.com/viccrubs/FrontendStarterKit/wiki/Unit-tests)
 
 [Production](https://github.com/viccrubs/FrontendStarterKit/wiki/Production)
 
@@ -81,8 +83,8 @@ It's built from the ground up with **webpack**. No breaking boilerplate-specific
 - [chai](https://github.com/chaijs/chai)
 
 ### Internalization
-- Custom i18n implementation
-  - dynamic replacement, async loading
+- Custom i18n implementation v2
+  - **Strongly typed**, dynamic replacement, async loading
 
 ### Production Utilities and Features
 

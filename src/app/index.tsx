@@ -7,18 +7,14 @@ import '../assets/less/antMotion_style.less';
 // enable MobX strict mode
 configure({enforceActions: true});
 
-async function render() {
-  // render react DOM
-  ReactDOM.render(
-    <App/>,
-    document.getElementById('root')
-  );
-  if (module.hot) {
-    module.hot.accept();
-  }
+// render react DOM
+ReactDOM.render(
+  <App/>,
+  document.getElementById('root')
+);
+if (module.hot) {
+  module.hot.accept();
 }
 
-
-render();
 
 

@@ -17,11 +17,11 @@ declare module '*.png' {
 declare type ClassType<T> = {
   [P in keyof T]: T[P];
 }
-
-declare module "*.json" {
+declare module "*.json5" {
   const value: any;
   export default value;
 }
+
 
 declare module "*.txt" {
   const value: any;

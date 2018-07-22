@@ -1,12 +1,10 @@
 
 import { expect } from "chai";
 import * as React from "react";
-import { Language } from "../definitions";
 import { LocaleStore } from "./LocaleStore";
-import { render } from "enzyme";
-import { ReactElement, ReactNode } from "react";
+import { Language } from "../definitions";
 
-const dummyLanguages =[
+const dummyLanguages = { languages: [
   { id: "LA", name: "", acceptedNavigatorLanguages: ["zh-CN"], fallback: true,
     getDefinition: (async () => (
       {
@@ -30,7 +28,8 @@ const dummyLanguages =[
         }
       }))()
   }
-] as Language[];
+] as Language<any>[]
+};
 
 describe("LocaleStore Test Replace", async () => {
   const store = new LocaleStore(dummyLanguages);

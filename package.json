@@ -9,13 +9,14 @@
     "start": "webpack-dev-server -d --hot --inline",
     "build": "npm run cleandist && webpack -p --progress --colors",
     "cleandist": "node ./deploy/cleandist.js",
-    "serveProd": "npm run build&&node ./deploy/serve.js"
+    "serveProd": "node ./deploy/serve.js"
   },
   "license": "Apache 2.0",
   "devDependencies": {
     "@types/chai": "^4.1.4",
-    "@types/classnames": "^2.2.5",
+    "@types/classnames": "^2.2.6",
     "@types/enzyme": "^3.1.12",
+    "@types/enzyme-adapter-react-16": "^1.0.2",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.5.2",
     "@types/react": "^16.4.6",
@@ -60,7 +61,7 @@
   },
   "dependencies": {
     "@antv/data-set": "^0.8.9",
-    "antd": "^3.7.0",
+    "antd": "^3.7.1",
     "bizcharts": "^3.1.10",
     "classnames": "^2.2.6",
     "mobx": "^5.0.3",
