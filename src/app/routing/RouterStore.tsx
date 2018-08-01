@@ -1,4 +1,3 @@
-import { History } from 'history';
 import { RouterStore as BaseRouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import { action, computed } from "mobx";
 import { Injectable } from "react.di";
@@ -10,7 +9,7 @@ import * as React from "react";
 
 @Injectable
 export class RouterStore extends BaseRouterStore {
-  constructor(history?: History) {
+  constructor(history?) {
     super();
     if (history) {
       this.history = syncHistoryWithStore(history, this);

@@ -1,13 +1,11 @@
 import { Definition } from '../definitions';
 
-interface Wrapper { bootstrap: Definition}
-
 export const GET_VALUE = "__get";
 
 export class Lang { }
 
 
-function factory<T, key extends keyof T>(): T[key] {
+function factory(): Definition {
   const paths = [];
   const obj = new Proxy(new Lang(), {
     get: (t, k) => {
@@ -20,7 +18,7 @@ function factory<T, key extends keyof T>(): T[key] {
 }
 
 function lang() {
-  return factory<Wrapper, "bootstrap">();
+  return factory();
 }
 
 export default lang;

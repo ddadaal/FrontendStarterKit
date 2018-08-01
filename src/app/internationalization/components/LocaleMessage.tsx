@@ -5,7 +5,7 @@ import { LocaleStore, ReplacementMap } from "../LocaleStore/LocaleStore";
 import { Lang } from "../LocaleStore/lang";
 
 
-interface LocaleMessageProps {
+interface Props {
   id: string;
   replacements?: ReplacementMap;
 }
@@ -14,9 +14,8 @@ interface State {
   hasError: boolean;
 }
 
-
 @observer
-export class LocaleMessage extends React.Component<LocaleMessageProps, State> {
+export class LocaleMessage extends React.Component<Props, State> {
 
   @Inject localeStore: LocaleStore;
 

@@ -62,7 +62,10 @@ export class UserStore {
     localStorage.removeItem(USER_LOCALSTORAGE_KEY);
   }
 
-  constructor(@Inject private userService: UserService, @Inject private httpService: HttpService, @Inject private routerStore: RouterStore) {
+  constructor(@Inject private userService: UserService,
+              @Inject private httpService: HttpService,
+              @Inject private routerStore: RouterStore
+  ) {
     const user = localStorage.getItem(USER_LOCALSTORAGE_KEY);
     if (user) {
       try {
