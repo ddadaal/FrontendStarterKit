@@ -39,8 +39,7 @@ export class RouterStore extends BaseRouterStore {
                            path={config.path}
                            component={config.component}
         />;
-      case
-      RouteType.Redirect:
+      case RouteType.Redirect:
         return <Redirect exact={exact}
                          key={config.path}
                          from={config.path}
