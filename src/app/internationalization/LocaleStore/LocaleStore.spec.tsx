@@ -1,4 +1,3 @@
-
 import { expect } from "chai";
 import * as React from "react";
 import { LocaleStore } from "./LocaleStore";
@@ -10,30 +9,30 @@ const dummyLanguages = { languages: [
       {
         a: {
           b: "AB",
-          c: "AC{placeholder1}"
+          c: "AC{placeholder1}",
         },
         b: {
-          complex: "{a}ABC{a}{b}cc"
-        }
-      }))()
+          complex: "{a}ABC{a}{b}cc",
+        },
+      }))(),
   }, {
     id: "LB", name: "", acceptedNavigatorLanguages: ["zh-CN"], fallback: false,
     getDefinition: (async () => (
       {
         a: {
-          c: "AC{placeholder1}"
+          c: "AC{placeholder1}",
         },
         b: {
-          complex: "{a}ABC{a}{b}cc"
-        }
-      }))()
-  }
-] as Language<any>[]
+          complex: "{a}ABC{a}{b}cc",
+        },
+      }))(),
+  },
+] as Array<Language<any>>,
 };
 
 describe("LocaleStore Test Replace", async () => {
   const store = new LocaleStore(dummyLanguages);
-  await store.init();
+  await store.init("zh-CN");
   it("should replace only string", () => {
     const format = "123{name}456";
     const replacements = { name: "156"};
@@ -42,10 +41,10 @@ describe("LocaleStore Test Replace", async () => {
   });
   it("should replace string with react element", () => {
     const format = "123{element}456{text}";
-    const replacements = { element: <span>1</span>,text: "156"};
+    const replacements = { element: <span>1</span>, text: "156"};
     const result = store.replace(format, replacements);
     expect(result[0]).eq("123");
-    expect(result.slice(2)).deep.eq(["456","156",""]);
+    expect(result.slice(2)).deep.eq(["456", "156", ""]);
     expect(React.isValidElement(result[1])).eq(true);
   });
   // it("should replace multiple elements with repeated tags", () => {
@@ -55,10 +54,10 @@ describe("LocaleStore Test Replace", async () => {
   //   expect(result).eq(["123",<a key={1}/>,"456",<span key={3}/>,"789",<a key={5}/>,""]);
   // });
 });
-
-describe("Locale Store Test",async  () => {
-  const store = new LocaleStore(dummyLanguages);
-
-  await store.init();
-
-});
+//
+// describe("Locale Store Test",async  () => {
+//   const store = new LocaleStore(dummyLanguages);
+//
+//   await store.init();
+//
+// });

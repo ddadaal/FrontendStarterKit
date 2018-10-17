@@ -23,7 +23,7 @@ class FakeLocalStorage implements Storage {
 
 }
 
-export const isBrowser = typeof window !== 'undefined';
+export const isBrowser = typeof window !== "undefined";
 const fakeLocalStorage = new FakeLocalStorage();
 
 export const localStorage = isBrowser ? window.localStorage : fakeLocalStorage;
@@ -33,5 +33,3 @@ export function setDocumentTitle(title: string) {
     document.title = title;
   }
 }
-
-

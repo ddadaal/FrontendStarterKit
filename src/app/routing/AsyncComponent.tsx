@@ -1,51 +1,48 @@
-import React, { ReactNode } from "react"
+import React, { ReactNode } from "react";
 import { observer } from "mobx-react";
 
-
-interface AsyncComponentProps<T> {
-  render: (props: T) => Promise<ReactNode>;
-  props?: T;
+interface AsyncComponentProps {
+  render: () => Promise<ReactNode>;
   componentWhenLoading?: ReactNode;
   componentProducerWhenLoadingFailed?: (e) => ReactNode;
   onRenderSuccess?(): void;
 }
 
-interface State<T> {
-  render: (props: T) => Promise<ReactNode>;
-  props?: T;
+interface State {
+  render: () => Promise<ReactNode>;
   component: ReactNode;
   loaded: boolean;
 }
 
-export class AsyncComponent<T> extends React.Component<AsyncComponentProps<T>, State<T>> {
+export class AsyncComponent extends React.Component<AsyncComponentProps, State> {
 
   state = {
     render: this.props.render,
-    props: this.props.props,
     component: this.props.componentWhenLoading || null,
-    loaded: false
+    loaded: false,
   };
 
   async loadComponent() {
     try {
-      const component = await this.props.render(this.props.props);
-      this.props.onRenderSuccess && this.props.onRenderSuccess();
+      const component = await this.props.render();
+      if (this.props.onRenderSuccess) {
+        this.props.onRenderSuccess();
+      }
       this.setState({
-        component: component,
-        loaded: true
+        component,
+        loaded: true,
       });
     } catch (e) {
       console.log(e);
       if (this.props.componentProducerWhenLoadingFailed) {
         this.setState({
             component: this.props.componentProducerWhenLoadingFailed(e),
-            loaded: true
-          }
+            loaded: true,
+          },
         );
       }
     }
   }
-
 
   componentDidMount() {
     this.loadComponent();
@@ -71,11 +68,4 @@ export class AsyncComponent<T> extends React.Component<AsyncComponentProps<T>, S
   render() {
     return this.state.component;
   }
-}
-
-
-// export const ObserverAsyncComponent = observer(AsyncComponent);
-
-export function ObserverAsyncComponent<T> (props: AsyncComponentProps<T>) {
-    return React.createElement(observer(() => <AsyncComponent {...props}/>));
 }

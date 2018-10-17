@@ -1,18 +1,14 @@
-import { LANGUAGE_CONFIG_TOKEN, Definition, KnownLanguages, Language } from "../definitions";
+import { Definition, KnownLanguages, Language, LANGUAGE_CONFIG_TOKEN } from "../definitions";
 import { action, computed, observable, runInAction } from "mobx";
 import { Inject, Injectable } from "react.di";
-import * as React from "react";
+import React from "react";
 import { GET_VALUE, Lang } from "./lang";
 
-export type ReplacementMap = {[key: string]: React.ReactNode};
+export interface ReplacementMap {[key: string]: React.ReactNode; }
 
-const idSeparator = '.';
+const idSeparator = ".";
 
-type LoadedLanguage = Language & { definitions: Definition }
-
-function currentBrowserLanguage(fallback: string) {
-  return typeof window !== 'undefined' ? window.navigator.language : fallback;
-}
+type LoadedLanguage = Language & { definitions: Definition };
 
 @Injectable
 export class LocaleStore {
@@ -33,7 +29,6 @@ export class LocaleStore {
     return this.currentLanguage.definitions;
   }
 
-
   @computed get allLanguages(): Language[] {
     return Array.from(this.availableLanguages.values());
   }
@@ -49,12 +44,12 @@ export class LocaleStore {
     const language = this.availableLanguages.get(id);
     const definitions = ((await language.getDefinition) as any).default;
 
-    const loaded = { ...language, definitions: definitions};
+    const loaded = { ...language, definitions};
     this.loadedLanguages.set(language.id, loaded);
     return loaded;
-  };
+  }
 
-  @action async init() {
+  @action async init(defaultLanguageId: string) {
     let fallbackId = null;
     for (const l of this.config) {
       this.availableLanguages.set(l.id, l);
@@ -63,25 +58,25 @@ export class LocaleStore {
       }
     }
 
-    this.currentLanguage = await this.loadLanguage(currentBrowserLanguage(fallbackId));
+    this.currentLanguage = await this.loadLanguage(defaultLanguageId || fallbackId);
     this.fallbackLanguage = await this.loadLanguage(fallbackId);
 
   }
 
-  public get(id: string | Lang, replacements?: ReplacementMap) : Array<React.ReactNode> | string {
+  get(id: string | Lang, replacements?: ReplacementMap): React.ReactNode[] | string {
     const trueId = id instanceof Lang ? id[GET_VALUE] : id;
     const definition = this.retrieveDefinition(trueId);
     return this.replace(definition, replacements);
-  };
+  }
 
-  replace(format: string, replacements?: ReplacementMap) : Array<React.ReactNode> | string {
+  replace(format: string, replacements?: ReplacementMap): React.ReactNode[] | string {
     const splitter = /({[0-9a-zA-Z]+})/;
-    let array = format.split(splitter);
-    let newArray = array as Array<React.ReactNode>;
+    const array = format.split(splitter);
+    const newArray = array as React.ReactNode[];
     let elementReplaced = false;
     if (replacements) {
-      for (let i =1;i<array.length;i+=2) {
-        const tag = array[i].substr(1,array[i].length - 2);
+      for (let i = 1; i < array.length; i += 2) {
+        const tag = array[i].substr(1, array[i].length - 2);
         const replacement = replacements[tag];
         if (replacement) {
           if (React.isValidElement(replacement)) {
@@ -106,7 +101,7 @@ export class LocaleStore {
     let fallbackContent = this.fallbackLanguage.definitions;
     let onFallback = false;
     for (const key of id.split(idSeparator)) {
-      if (typeof content === 'undefined') {
+      if (typeof content === "undefined") {
         throw new RangeError(`unidentified id ${id}`);
       }
       if (key in content) {
@@ -122,11 +117,10 @@ export class LocaleStore {
       }
     }
     if (typeof content !== "string") {
-      throw new RangeError(`id ${id} does not refer to a string. actual value: ${content}`)
+      throw new RangeError(`id ${id} does not refer to a string. actual value: ${content}`);
     }
     return content;
-  };
-
+  }
 
   @action async changeLanguage(id: string) {
     const newLanguage = await this.loadLanguage(id);
@@ -134,5 +128,5 @@ export class LocaleStore {
       this.currentLanguage = newLanguage;
     });
 
-  };
+  }
 }

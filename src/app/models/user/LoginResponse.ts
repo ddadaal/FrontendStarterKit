@@ -1,7 +1,11 @@
+import { UserRole } from "./User";
+
 export interface LoginResponse {
   token: string;
-  jwtRoles: {roleName: string}[];
-  email: string;
+  role: UserRole;
   avatarUrl: string;
-  registerDate: string;
+  username: string;
+  email: string;
+  emailValidated: boolean;
+  expireAt: string;
 }

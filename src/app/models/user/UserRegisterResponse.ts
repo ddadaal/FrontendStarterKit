@@ -1,3 +1,3 @@
 export interface UserRegisterResponse {
-  token: string
+  token: string;
 }

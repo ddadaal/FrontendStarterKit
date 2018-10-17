@@ -38,7 +38,7 @@ It's built from the ground up with **webpack**. No breaking boilerplate-specific
 
 [Internationalization](https://github.com/viccrubs/FrontendStarterKit/wiki/Internationalization)
 
-[IoC and Dependency Injection](https://github.com/viccrubs/FrontendStarterKit/wiki/IoC-and-Dependency-Injection)
+[DIP, IoC and DI](https://github.com/viccrubs/FrontendStarterKit/wiki/DIP,-IoC-and-DI)
 
 [User Management with JWT](https://github.com/viccrubs/FrontendStarterKit/wiki/User-Management-with-JWT)
 
@@ -102,6 +102,12 @@ See more in [here](docs/production.md)
   - extract CSS from JS
 - [JSON5](https://github.com/json5/json5)
   > JSON for human
+- [less-loader](https://github.com/webpack-contrib/less-loader)
+  - supports for [`less`](http://lesscss.org/) out of box
+- [react-markdown](https://github.com/rexxars/react-markdown)
+  - Out-of-box `Markdown` component under `components`
+- [TSLint](https://palantir.github.io/tslint/)
+  - Lint for TypeScript. 
 
 ## License
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Form } from "antd";
 import { FormProps } from "antd/es/form";
 
@@ -9,10 +9,10 @@ interface Props<T> {
   mapToFormProps(prop: T): FormProps;
 }
 
-export class RichFormItem<T> extends React.Component<Props<T>, {}> {
+export default class RichFormItem<T> extends React.Component<Props<T>, {}> {
   render() {
     return <AntdFormItem {...this.props.mapToFormProps(this.props.status)}>
       {this.props.children}
-    </AntdFormItem>
+    </AntdFormItem>;
   }
 }

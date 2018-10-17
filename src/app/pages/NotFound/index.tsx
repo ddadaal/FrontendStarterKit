@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 export class NotFoundPage extends React.Component<any, any> {
 

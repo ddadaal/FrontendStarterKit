@@ -1,57 +1,67 @@
 import { Injectable } from "react.di";
-import { NetworkResponse, createNetworkResponse } from "../HttpService";
 import { UserService } from "../UserService";
 import { UserRole } from "../../models/user/User";
-import { LevelInfo } from "../../models/user/LevelInfo";
 import { LoginResponse } from "../../models/user/LoginResponse";
-import { UserRegisterResponse } from "../../models/user/UserRegisterResponse";
-
+import { RegisterParams, RegisterResponse } from "../../models/user/Register";
+import { EmailValidationRequestReceipt } from "../../models/user/EmailValidation";
+import { NetworkError } from "../NetworkResponse";
+import { UserProfile } from "../../models/user/UserProfile";
 
 const sampleAvatar = "https://en.gravatar.com/userimage/57315252/e9c37404163b4b2e73fd72003e391aac.jpg?size=200";
 
 @Injectable
 export class UserServiceMock extends UserService {
 
-  async login(username: string, password: string): Promise<NetworkResponse<LoginResponse>> {
+  async login(username: string, password: string): Promise<LoginResponse> {
 
-    if (username === "worker") {
-      return createNetworkResponse(200, {
+    if (username === "user" && password === "user") {
+      return {
         token: "123",
-        jwtRoles: [{roleName: UserRole.ROLE_WORKER}],
-        email: "1@1.com",
+        role: UserRole.USER,
         avatarUrl: sampleAvatar,
-        registerDate: Date.now().toString()
-      })
+        username,
+        email: `${username}@test.com`,
+        emailValidated: true,
+        expireAt: Date.now().toString(),
+      };
+    } else {
+      throw { statusCode: 401 };
     }
-
-    else if (username === "admin") {
-      return createNetworkResponse(200, {
-        token: "123",
-        jwtRoles: [{roleName: UserRole.ROLE_ADMIN}],
-        email: "1@1.com",
-        avatarUrl: sampleAvatar,
-        registerDate: Date.now().toString()
-      })
-    }
-    return createNetworkResponse(200, {
-        token: "123",
-        jwtRoles: [{roleName: UserRole.ROLE_REQUESTER}],
-        email: "1@1.com",
-        avatarUrl: sampleAvatar,
-      registerDate: Date.now().toString()
-      }
-    );
   }
 
   logout() {
 
   }
 
-  async register(username: string, password: string): Promise<NetworkResponse<UserRegisterResponse>> {
-    return createNetworkResponse(201, {
-        token: "123",
-      }
-    );
+  async register(params: RegisterParams): Promise<RegisterResponse> {
+    return {
+      token: "123",
+      expireAt: "null",
+    };
   }
 
+  async requestEmailValidation(token: string): Promise<EmailValidationRequestReceipt> {
+    return {
+      validationToken: "123",
+      expireAt: "123",
+    };
+  }
+
+  async validateEmail(token: string, code: string, userToken: string): Promise<void> {
+    if (Math.random() <= 0.5) {
+      throw {
+        statusCode: 400,
+      } as NetworkError;
+    }
+  }
+
+  async getUserProfile(username: string): Promise<UserProfile> {
+    return {
+      username,
+      email: "smallda@outlook.com",
+      registerDate: "123",
+      avatarUrl: sampleAvatar,
+
+    };
+  }
 }

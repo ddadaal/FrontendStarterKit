@@ -1,30 +1,34 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from "react";
 import { Route, RouteComponentProps } from "react-router";
-import { ObserverAsyncComponent } from "./AsyncComponent";
+import { AsyncComponent } from "./AsyncComponent";
 
 interface Props<T> {
-  path: string;
+  path?: string;
   exact?: boolean;
   component?: Promise<any>;
+  props?: any;
   render?: (props: RouteComponentProps<T>) => Promise<ReactNode>;
 }
 
-export class AsyncRoute<T> extends React.PureComponent<Props<T>> {
+export class AsyncRoute<T> extends React.Component<Props<T>> {
 
-
-  renderRoute = (props) => {
-    return <ObserverAsyncComponent
+  renderRoute = (routeProps) => {
+    return <AsyncComponent
       render={this.props.component
         ? async () => {
-          return React.createElement((await this.props.component).default, props)
+          return React.createElement(
+            (await this.props.component).default,
+            { ...routeProps, ...this.props.props },
+          );
         }
-        : this.props.render}
-      props={props}
+        : () => this.props.render(routeProps)}
     />;
-  };
+  }
 
   render() {
-    return <Route path={this.props.path} exact={this.props.exact}
-                  render={this.renderRoute}/>;
+    return <Route path={this.props.path}
+                  exact={this.props.exact}
+                  render={this.renderRoute}
+    />;
   }
 }

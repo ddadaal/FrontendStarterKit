@@ -1,4 +1,4 @@
-import { Definition } from '../definitions';
+import { Definition } from "../definitions";
 
 export const GET_VALUE = "__get";
 
@@ -6,14 +6,14 @@ export class Lang {
   constructor(public paths: PropertyKey[]) { }
 }
 
-function factory(lang: Lang) {
-  const obj = new Proxy(lang, {
+function factory(langObj: Lang) {
+  const obj = new Proxy(langObj, {
     get: (t, k) => {
       if (k === GET_VALUE) {
-        return lang.paths.join(".");
+        return langObj.paths.join(".");
       }
-      return factory(new Lang([...t.paths, k]))
-    }
+      return factory(new Lang([...t.paths, k]));
+    },
   }) as any;
   return obj;
 }

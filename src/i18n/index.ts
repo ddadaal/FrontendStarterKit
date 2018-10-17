@@ -7,40 +7,37 @@ function translate(content: string[], to: string[]) {
   return new Promise((resolve, reject) => {
     pri_translate(content, to, (res) => {
       resolve(res);
-    }, error => {
-      reject(error)
+    }, (error) => {
+      reject(error);
     });
   });
 }
 
-
-
-
 async function main(ori, target, targetLanguage: string) {
   for (const key in ori) {
-    if (typeof ori[key] === 'object') {
-      target[key]={};
-      await main(ori[key],target[key], targetLanguage);
+    if (typeof ori[key] === "object") {
+      target[key] = {};
+      await main(ori[key], target[key], targetLanguage);
     } else {
 
       const oriText = ori[key];
       const splittedText = oriText.split(/({[0-9a-zA-Z]+})/);
 
-      const needTranslate = splittedText.filter((x,i) => i%2==0);
+      const needTranslate = splittedText.filter((x, i) => i % 2 == 0);
 
       console.log("translating ", needTranslate, "to", targetLanguage);
       let result = "//TODO";
       try {
         const res = await translate(needTranslate, [targetLanguage]);
 
-        for (let i=0;i<splittedText.length;i+=2){
-          splittedText[i]=res[Math.floor(i/2)][0].text;
+        for (let i = 0; i < splittedText.length; i += 2) {
+          splittedText[i] = res[Math.floor(i / 2)][0].text;
         }
         result = splittedText.join("");
       } catch (e) {
         console.log(e);
       }
-      target[key]=result;
+      target[key] = result;
 
     }
   }

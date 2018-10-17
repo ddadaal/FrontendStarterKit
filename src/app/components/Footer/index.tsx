@@ -1,33 +1,32 @@
-import React from 'react';
-import TweenOne from 'rc-tween-one';
-import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
-import QueueAnim from 'rc-queue-anim';
+import React from "react";
+import TweenOne from "rc-tween-one";
+import OverPack from "rc-scroll-anim/lib/ScrollOverPack";
+import QueueAnim from "rc-queue-anim";
 import { LocaleMessage } from "../../internationalization/components";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import { Inject } from "react.di";
 import styled from "styled-components";
-import img from '../../../assets/svg/.png';
-import { SvgImg } from "../SvgImg";
+import img from "../../../assets/svg/.png";
+import SvgImg from "../SvgImg";
 import { LocaleStore } from "../../internationalization";
+import lang from "../../internationalization/LocaleStore/lang";
 
 export interface FooterProps {
   isMobile?: boolean;
   id?: string;
 }
 
-const ID_PREFIX = "footer.";
-
+const root = lang().footer;
 
 @observer
-export class Footer extends React.Component<FooterProps, any> {
+export default class Footer extends React.Component<FooterProps, any> {
 
   static defaultProps = {
-    className: 'footer1',
+    className: "footer1",
     id: "footer_1_0",
-    isMobile: false
+    isMobile: false,
   };
-
 
   @Inject localeStore: LocaleStore;
 
@@ -38,11 +37,11 @@ export class Footer extends React.Component<FooterProps, any> {
         const cItem = item.trim();
         const isImg = cItem.match(/\.(jpg|png|svg|bmp|jpeg)$/i);
         const link = links[ii];
-        const content = isImg ? <img src={cItem} width="100%"/> : cItem;
-        return (<li className={isImg ? 'icon' : ''} key={ii}>
+        const imgContent = isImg ? <img src={cItem} width="100%"/> : cItem;
+        return (<li className={isImg ? "icon" : ""} key={ii}>
           {link.startsWith("/")
-            ? <Link to={link}>{content}</Link>
-            : <a href={link} target="_blank">{content}</a>
+            ? <Link to={link}>{imgContent}</Link>
+            : <a href={link} target="_blank">{imgContent}</a>
           }
         </li>);
       });
@@ -52,7 +51,7 @@ export class Footer extends React.Component<FooterProps, any> {
         {content}
       </ul>
     </li>);
-  };
+  }
 
   render() {
     const props = {...this.props};
@@ -60,44 +59,29 @@ export class Footer extends React.Component<FooterProps, any> {
     delete props.isMobile;
 
     const get = (id: string) => {
-      return this.localeStore.get(ID_PREFIX + id);
+      return this.localeStore.get(id);
     };
 
     const dataSource = [
       {
-        title: get("help.title"),
+        title: get(root.help.title),
         content: [
-          get("help.about"),
-          get("help.usage"),
-          get("help.FAQ")
+          get(root.help.usage),
+          get(root.help.about),
         ],
         contentLink: [
-          '/about/about',
-          '/about/usage',
-          '/about/faq'
-        ]
+          "/help",
+          "/help/about",
+        ],
       },
       {
-        title: get("madeByUs.title"),
+        title: get(root.contact),
         content: [
-          get("madeByUs.NJUAdmin"),
-          get("madeByUs.AstronAlice"),
-          get("madeByUs.Lightx00")
+          "https://zos.alipayobjects.com/rmsportal/AXtqVjTullNabao.svg",
         ],
         contentLink: [
-          "https://github.com/trapx00/NJUAdmin",
-          "#",
-          "https://github.com/trapx00/Lightx00"
-        ]
-      },
-      {
-        title: get("contact"),
-        content: [
-          "https://zos.alipayobjects.com/rmsportal/AXtqVjTullNabao.svg"
+          "https://github.com/FinBrain",
         ],
-        contentLink: [
-          "https://github.com/trapx00"
-        ]
       },
     ];
 
@@ -107,23 +91,23 @@ export class Footer extends React.Component<FooterProps, any> {
       playScale={isMobile ? 0.5 : 0.2}
     >
 
-      <QueueAnim type="bottom" component="ul" key="ul" leaveReverse id={`${props.id}-ul`}>
+      <QueueAnim type="bottom" component="ul" key="ul" leaveReverse={true}>
         <li key="logo" id={`${props.id}-logo`}>
           <LogoContainer>
-            <SvgImg filePath={"tag_x00_logo_landscape_with_texts.svg"} height={50} width={170}/>
+            <SvgImg filePath={"landscape.svg"} height={50} width={170}/>
           </LogoContainer>
-          <p><LocaleMessage id={ID_PREFIX + "productDescription"}/></p>
+          <p><LocaleMessage id={root.productDescription}/></p>
         </li>
         {liChildrenToRender}
       </QueueAnim>
       <TweenOne
-        animation={{y: '+=30', opacity: 0, type: 'from'}}
+        animation={{y: "+=30", opacity: 0, type: "from"}}
         key="copyright"
         className="copyright"
         id={`${props.id}-content`}
       >
         <span>
-          <LocaleMessage id={ID_PREFIX + "copyright"}/>
+          <LocaleMessage id={root.copyright}/>
         </span>
       </TweenOne>
     </OverPack>

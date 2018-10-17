@@ -6,6 +6,7 @@ import { HttpService } from "./HttpService";
 export default function(useMock: boolean) {
   return [
     {provide: UserService, useClass: useMock ? UserServiceMock : UserService},
-    {provide: HttpService, useClass: HttpService}
+    {provide: HttpService, useClass: HttpService},
+
   ] as Binding[];
 }

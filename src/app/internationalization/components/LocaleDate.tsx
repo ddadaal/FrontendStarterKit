@@ -1,9 +1,8 @@
 import { observer } from "mobx-react";
-import React from "react"
-import moment, { MomentInput } from 'moment';
+import React from "react";
+import moment, { MomentInput } from "moment";
 import { LocaleStore } from "../LocaleStore/LocaleStore";
 import { Inject } from "react.di";
-
 
 interface LocaleDateProps {
   formatId: string;

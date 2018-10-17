@@ -8,7 +8,7 @@ export class UiStore {
 
   @action toggleLoginModalShown = () => {
     this.loginModalShown = !this.loginModalShown;
-  };
+  }
 
   @action setLoginModalLoading = (loading: boolean) => {
     this.loginModalLoading = loading;

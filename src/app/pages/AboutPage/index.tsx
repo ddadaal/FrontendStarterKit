@@ -4,10 +4,7 @@ import { AsyncComponent } from "../../routing/AsyncComponent";
 
 export default class AboutPage extends React.Component<any, any> {
 
-
   render() {
     return "about";
   }
 }
-
-

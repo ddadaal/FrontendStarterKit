@@ -1,32 +1,6 @@
-import { appendQueryString, HttpMethod, NetworkErrorCode, urlJoin } from "./utils";
+import { appendQueryString, HttpMethod, NETWORK_ERROR_CODE, urlJoin } from "./utils";
 import { Injectable } from "react.di";
-
-export function createNetworkResponse<T>(statusCode: number, response: T, error?: any) {
-  return {
-    statusCode,
-    response,
-    ok: 200 <= statusCode && statusCode < 300,
-    error: {
-      statusCode: statusCode,
-      info: error,
-      isNetworkError: statusCode === NetworkErrorCode,
-      isServerError: statusCode >= 500
-    }
-  }
-}
-
-export interface NetworkResponse<T = any> {
-  statusCode: number;
-  response: T;
-  ok: boolean;
-  error: {
-    statusCode: number;
-    info: any;
-    isNetworkError: boolean;
-    isServerError: boolean;
-  };
-}
-
+import { NetworkError, NetworkResponse } from "./NetworkResponse";
 
 export interface FetchInfo {
   path?: string;
@@ -35,6 +9,7 @@ export interface FetchInfo {
   body?: any;
   headers?: {[s: string]: string};
   mode?: RequestMode;
+  token?: string;
 }
 
 declare var APIROOTURL: string;
@@ -43,25 +18,6 @@ declare var APIROOTURL: string;
 export class HttpService {
 
   token: string  = "";
-
-  async sendFile<T = any>(files: FormData,
-                          url: string,
-                          token: string,
-                          queryParams?: any,
-                          headers?: {[s: string]: string}): Promise<NetworkResponse<T>> {
-    const actualUrl = urlJoin(APIROOTURL, url);
-    try {
-      const res = await fetch(appendQueryString(actualUrl, queryParams), {
-        method: HttpMethod.POST,
-        headers: {Authorization: "Bearer "+token, ...headers},
-        body: files
-      });
-      const json = await res.json();
-      return createNetworkResponse(res.status, json);
-    } catch (e) {
-      return createNetworkResponse(NetworkErrorCode, null, e);
-    }
-  }
 
   async fetchRaw(fetchInfo: FetchInfo = {}): Promise<Response> {
     const body = fetchInfo.body
@@ -76,13 +32,22 @@ export class HttpService {
         method: fetchInfo.method || HttpMethod.GET,
         headers: fetchInfo.headers,
         ...mode,
-        ...body
+        ...body,
       });
   }
 
+  /**
+   * Execute the fetch request.
+   * @param fetchInfo info
+   * @returns If request is successful and status code is [200,300),
+   * returns NetworkResponse containing statusCode and response payload
+   * @throws If request is not successful or statusCode is >=300,
+   * throws NetworkError containing statusCode and error payload
+   */
   async fetch<T = any>(fetchInfo: FetchInfo = {}): Promise<NetworkResponse<T>> {
-    const authHeader = this.token
-      ? {"Authorization": `Bearer ${this.token}`}
+    const token = fetchInfo.token || this.token;
+    const authHeader = token
+      ? {Authorization: `${token}`}
       : {};
     try {
       const response = await this.fetchRaw({
@@ -91,17 +56,39 @@ export class HttpService {
         path: urlJoin(APIROOTURL, fetchInfo.path),
         headers: {
           ...authHeader,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           ...fetchInfo.headers,
-        }
+        },
       });
-      return createNetworkResponse(response.status, (await response.json()));
+
+      const content = await response.text();
+      const parsedContent = content ? JSON.parse(content) : null;
+
+      if (response.ok) {
+        return {
+          statusCode: response.status,
+          response: parsedContent,
+        };
+      } else {
+        throw {
+          statusCode: response.status,
+          info: parsedContent,
+          isNetworkError: false,
+          isServerError: true,
+        } as NetworkError;
+      }
+
     } catch (e) {
-      return createNetworkResponse(NetworkErrorCode, null, e);
+      if (e.isServerError) {
+        throw e;
+      }
+      throw {
+        statusCode: NETWORK_ERROR_CODE,
+        info: e,
+        isNetworkError: true,
+        isServerError: false,
+      } as NetworkError;
     }
-
-
-
 
   }
 }

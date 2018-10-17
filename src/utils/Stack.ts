@@ -1,6 +1,6 @@
 export class Stack<T> {
 
-  stack:T[];
+  stack: T[];
 
   constructor(...items: T[]) {
     this.stack = items;
@@ -11,7 +11,7 @@ export class Stack<T> {
   }
 
   peek() {
-    return this.stack[this.stack.length-1];
+    return this.stack[this.stack.length - 1];
   }
 
   pop() {
@@ -19,7 +19,7 @@ export class Stack<T> {
   }
 
   empty() {
-    return this.stack.length==0;
+    return this.stack.length === 0;
   }
 
 }

@@ -1,7 +1,7 @@
-import lang from './LocaleStore/lang';
+import lang from "./LocaleStore/lang";
 
-export { LocaleDate, LocaleMessage, Localize } from './components';
+export { LocaleDate, LocaleMessage, Localize } from "./components";
 
-export { LocaleStore } from './LocaleStore/LocaleStore';
+export { LocaleStore } from "./LocaleStore/LocaleStore";
 
 export { lang };

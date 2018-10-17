@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { default as React, ReactNode } from "react";
-import { If } from "../Util/If";
+import If from "../Util/If";
 
 export const Prompt = styled.span`
     float: left;
-    width: 120px;
+    width: 150px;
     color: darkgray;
 `;
 
@@ -16,8 +16,6 @@ export const Container = styled.div`
     margin-bottom: 1em;
 `;
 
-export const ID_PREFIX = "missions.missionDetail.";
-
 export function DefinitionItem(props: { prompt: ReactNode, children: ReactNode }) {
   return <Container>
     <Prompt>{props.prompt}</Prompt>
@@ -26,5 +24,5 @@ export function DefinitionItem(props: { prompt: ReactNode, children: ReactNode }
         {props.children}
       </If>
     </Content>
-  </Container>
+  </Container>;
 }

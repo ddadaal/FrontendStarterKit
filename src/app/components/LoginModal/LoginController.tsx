@@ -2,35 +2,14 @@ import { action, computed, observable, runInAction } from "mobx";
 import { Inject, Injectable } from "react.di";
 import { UserService } from "../../api/UserService";
 import { UserStore } from "../../stores/UserStore";
-
+import { User } from "../../models/user/User";
 
 export enum LoginState {
   NotLoggedIn,
   LoggingIn,
-  LoggedIn
+  RequireEmailValidation,
+  LoggedIn,
 }
-
-
-export enum LoginErrorType {
-  WrongCredential = "WrongCredential",
-  ServerError = "ServerError",
-  NetworkError = "NetworkError"
-}
-
-export interface LoginError {
-  type: LoginErrorType
-}
-
-export interface LoginServerError extends LoginError {
-  type: LoginErrorType.ServerError,
-  messages: string[]
-}
-
-export interface LoginNetworkError extends LoginError {
-  type: LoginErrorType.NetworkError;
-  error: any
-}
-
 
 export class LoginFormFields {
   @observable username: string;
@@ -56,47 +35,57 @@ export class LoginController {
   @observable state: LoginState = LoginState.NotLoggedIn;
   @observable fields: LoginFormFields = new LoginFormFields();
 
+  user: User; // store the LoginResponse for unvalidated user
 
-  @action public logout = () => {
+  @action logout = () => {
     this.state = LoginState.NotLoggedIn;
-  };
+  }
 
-  constructor(@Inject private userService: UserService, @Inject private userStore: UserStore) {
+  constructor(@Inject private userService: UserService,
+              @Inject private userStore: UserStore,
+
+  ) {
   }
 
   @computed get loggingIn() {
     return this.state === LoginState.LoggingIn;
   }
 
-  async doLogin() {
-    await this.requestLogin(this.fields.username, this.fields.password);
-    if (this.fields.remember) {
-      this.userStore.remember();
+  @action emailValidationComplete = (validated: boolean) => {
+    if (validated) {
+      this.completeLogin();
+    } else {
+      this.state = LoginState.NotLoggedIn;
     }
+    this.user = null;
   }
 
-  @action public requestLogin = async (username: string, password: string) => {
+  @action completeLogin() {
+
+    this.userStore.login(this.user, this.fields.remember);
+
+    this.state = LoginState.LoggedIn;
+  }
+
+  @action requestLogin = async (username: string, password: string) => {
     this.state = LoginState.LoggingIn;
     try {
-      await this.userStore.login(username, password);
-      runInAction("requestLogin success", () => {
-        this.state = LoginState.LoggedIn;
+      this.user = await this.userStore.requestLogin(username, password);
+      runInAction(() => {
+        if (this.user.emailValidated) {
+          // login directly
+          this.completeLogin();
+        } else {
+          // email not validated. into RequireEmailValidation state
+          this.state = LoginState.RequireEmailValidation;
+        }
       });
     } catch (e) {
-      console.log(e);
-      const {statusCode, error, response} = e;
-      runInAction("requestLogin failed", () => {
+      runInAction(() => {
         this.state = LoginState.NotLoggedIn;
       });
-      if (statusCode === 401) {
-        throw {type: LoginErrorType.WrongCredential};
-      } else if (error.isNetworkError) {
-        throw {type: LoginErrorType.NetworkError, error: error.info};
-      } else {
-        throw {type: LoginErrorType.ServerError, messages: response!.errorDescriptions } as LoginServerError;
-      }
+      throw e;
     }
-
 
   }
 }

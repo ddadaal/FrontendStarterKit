@@ -1,15 +1,18 @@
 import { Inject, Module } from "react.di";
 import React from "react";
 import providers from "../providers";
-import { Router, Switch } from "react-router";
+import { Router } from "react-router";
 import DevTools from "mobx-react-devtools";
 import { LocaleStore } from "../internationalization";
 import { RouterStore } from "../routing/RouterStore";
-import { AsyncRouteConfig, RouteConfig, RouteType, KnownRouteConfig } from "../routing/RouteConfig";
-import { RootLayout } from "../layouts/RootLayout";
+import { KnownRouteConfig, RouteType } from "../routing/RouteConfig";
+import routeIndexPage from "../routing/RouteIndexPage";
+import { MainLayout } from "../layouts/MainLayout";
+import styled from "styled-components";
+import { BackTop } from "antd";
 
 function renderDevTool() {
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== "production") {
     return (<DevTools/>);
   } else {
     return null;
@@ -20,13 +23,21 @@ interface State {
   loaded: boolean;
 }
 
-const rootRoutes: KnownRouteConfig[] = [
-  { type: RouteType.Async, path:"/", component: import("./HomePage") },
-  { type: RouteType.Async, path:"/about", component: import("./AboutPage") },
-];
+const routes = [
+  { type: RouteType.Async, path: "/", exact: true, component: import("./HomePage")},
+  { type: RouteType.Async, path: "register", exact: false, component: import("./RegisterPage")},
+  { type: RouteType.Async, component: import("./FunctionSwitch") },
+
+] as KnownRouteConfig[];
+
+const OverrideCardContainer = styled.div`
+  .ant-card {
+    margin: 4px !important;
+  }
+`;
 
 @Module({
-  providers: providers
+  providers,
 })
 export class App extends React.Component<{}, State> {
 
@@ -34,14 +45,17 @@ export class App extends React.Component<{}, State> {
   @Inject routerStore: RouterStore;
 
   state = {
-    loaded: false
+    loaded: false,
   };
 
   async componentDidMount() {
+
+    const currentLanguage = typeof window !== "undefined" && window.navigator.language;
+
     // initialize global states here
-    await this.localeStore.init();
+    await this.localeStore.init(currentLanguage);
     this.setState({
-      loaded: true
+      loaded: true,
     });
   }
 
@@ -49,15 +63,14 @@ export class App extends React.Component<{}, State> {
     if (!this.state.loaded) {
       return null;
     }
-    return <div>
-      <RootLayout>
-      <Router history={this.routerStore.history}>
-        <Switch>
-          {rootRoutes.map(this.routerStore.constructRoute)}
-        </Switch>
-      </Router>
-      </RootLayout>
-      {/*{renderDevTool()}*/}
-    </div>;
+
+    const RouteIndexPage = routeIndexPage(routes, MainLayout, false) as any;
+
+    return <Router history={this.routerStore.history}>
+      <OverrideCardContainer>
+        <BackTop/>
+      <RouteIndexPage/>
+      </OverrideCardContainer>
+      </Router>;
   }
 }

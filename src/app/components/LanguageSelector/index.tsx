@@ -1,22 +1,16 @@
 import { observer } from "mobx-react";
-import React from "react"
-import { LocaleMessage, LocaleStore, lang } from "../../internationalization";
-import { action, observable, runInAction } from "mobx";
-import { Dropdown, Icon, Menu } from 'antd';
+import React from "react";
+import { lang, LocaleMessage, LocaleStore } from "../../internationalization";
+import { observable, runInAction } from "mobx";
+import { Dropdown, Icon, Menu } from "antd";
 import { Inject } from "react.di";
-import { If } from "../Util/If";
 
-interface LanguageSelectorProps {
-
+interface Props {
+  className?: string;
 }
-
-interface LanguageSelectorItemProps {
-
-}
-
 
 @observer
-export class LanguageSelector extends React.Component<LanguageSelectorProps, any> {
+export default class LanguageSelector extends React.Component<Props, {}> {
   @observable switchingToId: string = "";
 
   @Inject localeStore: LocaleStore;
@@ -37,24 +31,25 @@ export class LanguageSelector extends React.Component<LanguageSelectorProps, any
       this.switchingToId = "";
     });
 
-  };
+  }
 
   constructChildren() {
-    return this.localeStore.allLanguages.filter(x => x.id !== this.localeStore.currentLanguage.id).map(x =>
+    return this.localeStore.allLanguages.filter((x) => x.id !== this.localeStore.currentLanguage.id).map((x) =>
       <Menu.Item key={x.id}>
         <a onClick={this.languageOnClickProducer(x.id)}>
           {x.name}
-          <If condition={this.switchingToId == x.id}>
-            <LocaleMessage id={lang().languageSelector.loading}/>
-          </If>
+          {this.switchingToId === x.id
+            ? <LocaleMessage id={lang().languageSelector.loading}/>
+            : null
+          }
         </a>
 
-      </Menu.Item>
+      </Menu.Item>,
     );
   }
 
   render() {
-    return <Dropdown overlay={this.constructMenu()}>
+    return <Dropdown className={this.props.className} overlay={this.constructMenu()}>
       <a className="ant-dropdown-link">
         {this.localeStore.currentLanguage.name} <Icon type="down" />
       </a>

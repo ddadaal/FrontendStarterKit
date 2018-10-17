@@ -1,11 +1,9 @@
-import * as moment from "moment";
+import moment from "moment";
 
 export enum UserRole {
-  ROLE_REQUESTER = "ROLE_REQUESTER",
-  ROLE_WORKER = "ROLE_WORKER",
-  ROLE_ADMIN = "ROLE_ADMIN"
+  USER = "USER",
+  ADMIN = "ADMIN",
 }
-
 
 export class User {
   username: string;
@@ -14,7 +12,7 @@ export class User {
   email: string;
   avatarUrl: string;
   registerDate: moment.Moment;
-
+  emailValidated: boolean;
 
   constructor(params: Partial<User>) {
     Object.assign(this, params);

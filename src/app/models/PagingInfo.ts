@@ -9,5 +9,5 @@ export const DEFAULT_PAGING_INFO  = {
   totalCount: 0,
   currentPage: 1,
   pageSize: 10,
-  totalPage: 1
+  totalPage: 1,
 };

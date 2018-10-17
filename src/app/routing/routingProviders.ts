@@ -5,4 +5,4 @@ const history = createBrowserHistory();
 
 export default [
   {provide: RouterStore, useValue: new RouterStore(history) },
-]
+];

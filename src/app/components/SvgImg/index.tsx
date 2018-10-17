@@ -1,13 +1,19 @@
-import React from "react"
+import React from "react";
 
 interface Props {
   filePath: string;
   height?: number;
   width?: number;
   className?: string;
+  onClick?(): void;
 }
 
-export function SvgImg(props: Props) {
-  const Svg = require(`svg-react-loader?name=Svg!../../../assets/svg/${props.filePath}`);
-  return <Svg className={props.className} width={props.width} height={props.height}/>;
+export default class SvgImg extends React.PureComponent<Props> {
+
+  render() {
+    const { filePath, height, width, className } = this.props;
+    const Svg = require(`svg-react-loader?name=Svg!../../../assets/svg/${filePath}`);
+    return <Svg onClick={this.props.onClick} className={className} width={width} height={height}/>;
+  }
+
 }
